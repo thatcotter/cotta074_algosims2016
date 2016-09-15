@@ -67,7 +67,7 @@ void ofApp::draw(){
     for(int i = 0; i<10; i++){
         
         for(int j = 0; j<10; j++){
-            ofSetColor(255, i*20, j*20);
+            ofSetColor(255, i*25, j*25);
             myCircles[i][j].draw();
         }
         

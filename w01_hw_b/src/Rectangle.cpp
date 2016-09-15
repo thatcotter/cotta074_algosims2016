@@ -40,3 +40,5 @@ void rectangle::resetAB(){
     posb.y = ofGetMouseY();
     
 }
+
+
