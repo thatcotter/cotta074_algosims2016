@@ -16,72 +16,75 @@ Flowfield::Flowfield(){
 void Flowfield::setup(int _res){
     resolution = _res;
     
-    cols = ofGetWidth()*2/resolution +2;
-    rows = ofGetHeight()*2/resolution +2;
-    
-    float xoff = 0;
-    
-    for (int i = 0; i < cols; i++) {
-        vector<float> tempCol;
-        
-        float yoff = 0;
-        
-        for (int j = 0; j < rows; j++) {
-            
-            float theta = ofRadToDeg( ofMap(ofNoise(xoff,yoff),0,1,0,TWO_PI) );
-            
-//            cout << theta << endl;
-            
-            tempCol.push_back(theta);
-            
-            yoff += 0.03;
-        }
-        
-        field.push_back(tempCol);
-        xoff += 0.03;
+    cols = ofGetWidth()/resolution;
+    rows = ofGetHeight()/resolution;
+    field.resize(cols);
+    for (int i = 0; i < cols; i++){
+        field[i].resize(rows);
     }
+    init();
     
 }
 
-void Flowfield::update(){
+void Flowfield::init() {
     
+    float xoff_seed = ofRandom(0,1);
+    float yoff_seed = ofRandom(0,1);
+    
+    float xoff = xoff_seed;
+    for (int i = 0; i < cols; i++) {
+        float yoff = yoff_seed;
+        for (int j = 0; j < rows; j++) {
+            float theta = ofMap(ofNoise(xoff,yoff),0,1,0,TWO_PI);
+            // Polar to cartesian coordinate transformation to get x and y components of the vector
+            field[i][j].set(cos(theta),sin(theta));
+            yoff += 0.003;
+        }
+        xoff += 0.001;
+    }
+}
+
+void Flowfield::update(){
+    float xoff = 0;
+    for (int i = 0; i < cols; i++) {
+        float yoff = 0;
+        for (int j = 0; j < rows; j++) {
+            float theta = ofMap(ofNoise(xoff,yoff,zoff),0,1,0,TWO_PI);
+            // Polar to cartesian coordinate transformation to get x and y components of the vector
+            field[i][j].set(cos(theta),sin(theta));
+            yoff += 0.0003;
+        }
+        xoff += 0.0001;
+    }
+    // Animate by changing 3rd dimension of noise every frame
+    zoff += 0.0001;
 }
 
 void Flowfield::display(){
     
-    for(int i=0; i< rows ; i++)
-    {
-        for(int j=0; j< cols ; j++)
-        {
-            ofFill();
-            ofPushMatrix();
-            // add half resolution to each dimension to put us in center of each 'cell'
-            ofTranslate((i*resolution) + resolution/2,
-                         j*resolution  + resolution/2);
-            float angleToRotate = field[i][j];
-            ofRotate(angleToRotate);
-            drawArrow(resolution);
-            ofSetColor(255);
-//            int angFloored = angleToRotate;
-//             ofDrawBitmapString(ofToString(angFloored), 0,0); // uncomment to output angle at position for debugging
-            ofPopMatrix();
+    for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < rows; j++) {
+            drawVector(field[i][j],i*resolution,j*resolution,resolution-2);
         }
     }
     
 }
 
-void Flowfield::drawArrow(float _length)
-{
-    // half the length is subtracted from the x point positions to move the rotation axis to the center
+void Flowfield::drawVector(const ofVec2f & v, float x, float y, float scayl) {
     ofSetColor(255);
-    ofDrawLine(-_length/2, 0, _length/2, 0);
-    ofDrawLine(-_length/2 + _length*0.8, _length*0.1, _length/2, 0);
-    ofDrawLine(-_length/2 + _length*0.8, _length*-0.1, _length/2, 0);
+    ofPushMatrix();
+    float arrowsize = 4;
+    // Translate to location to render vector
+    ofTranslate(x,y);
+    //stroke(0,100);
+    // Call vector heading function to get direction (note that pointing up is a heading of 0) and rotate
+    ofRotate(ofVec2f(1,0).angle(v));
+    // Calculate length of vector & scale it to be bigger or smaller if necessary
+    float len = v.length()*scayl;
+    // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
+    ofDrawLine(0,0,len,0);
+    ofDrawLine(len,0,len-arrowsize,+arrowsize/2);
+    ofDrawLine(len,0,len-arrowsize,-arrowsize/2);
+    ofPopMatrix();
 }
 
-
-float Flowfield::lookup( ofVec2f _lookup){
-    int column = int(ofClamp(_lookup.x/resolution,0,cols-1));
-    int row = int(ofClamp(_lookup.y/resolution,0,rows-1));
-    return field[column][row];
-}

@@ -1,7 +1,12 @@
+//sound sample courtesy of NASA
+
+
 #pragma once
 
 #include "ofMain.h"
 #include "Flowfield.hpp"
+#include "Vehicle.hpp"
+#include "ofxAssimpModelLoader.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,13 +27,28 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-    void draw3D();
+    void toroid( int numc, int numt );
+    
     Flowfield flowField;
+    vector<Vehicle> vehicles;
+
+    void draw3D();
     ofSpherePrimitive sphere;
+    ofSpherePrimitive earth;
     
     ofEasyCam cam;
     ofLight light;
     ofMaterial material;
+    ofMaterial emfMat;
     
     ofFbo fbo;
+//    ofGLRenderer renderer;
+    
+    bool isDebugMode;
+    ofSoundPlayer emf;
+    ofTrueTypeFont myfont;
+    
+    float titleAlpha;
+//    ofxAssimpModelLoader torus;
+    
 };
