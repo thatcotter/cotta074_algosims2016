@@ -1,4 +1,4 @@
 #readme
 
-##Notes on week 2:
-I was trying to implement a flowfield onto a sphere, like [this piece](https://vimeo.com/11014356) in Reza Al. Unfortunately, implementing flowfields prooved more taxing in oF than I had anticipated.
+##Notes on week 4:
+I'm to translate a game jam I did in processing back in January to oF. [The game itself](http://thatcotter.github.io/microcosm) was a version of asteroids with some more newtonian physics. However, I've been unning into issues translating PVectors to ofPoints.
