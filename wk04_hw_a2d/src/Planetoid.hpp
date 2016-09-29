@@ -6,7 +6,9 @@
 //
 //
 
+#pragma once
 #include "ofMain.h"
+#include "ofApp.h"
 #include "Ship.hpp"
 
 class Planetoid{
@@ -20,6 +22,7 @@ public:
     ofPoint attractP(Planetoid _p);
     ofPoint attractS(Ship _s);
     
+private:
     ofPoint location;
     ofPoint velocity;
     ofPoint acceleration;

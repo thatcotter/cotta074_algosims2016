@@ -7,6 +7,7 @@
 //
 
 #include "Ship.hpp"
+
 Ship::Ship() {
     location = ofPoint(ofGetWidth()/2, ofGetHeight()/2);
     velocity = ofPoint(0, 0);
@@ -22,14 +23,14 @@ void update() {
     acceleration *= 0.5;
     ps.run();
 }
-void applyForce(PVector force) {
-    PVector f = force.copy();
-    f.div(mass);
-    acceleration.add(f);
+void applyForce(ofPoint _force) {
+    ofPoint f = force;
+    f = f / mass;
+    acceleration += f;
 }
 
 void turn(float a) {
-    heading += a*6;
+    heading += a * 6;
 }
 void splode() {
     ps.addParticle(location.x, location.y+r, PVector.random2D());

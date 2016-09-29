@@ -24,8 +24,7 @@ void Particle::update(){
 }
 
 void Particle::display(){
-//    noStroke();
-    ofFill(pink, this->lifespan);
+//    ofFill(pink, this->lifespan);
     ofDrawEllipse(location.x, location.y, 4, 4);
 }
 

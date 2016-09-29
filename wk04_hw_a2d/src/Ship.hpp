@@ -5,13 +5,15 @@
 //  Created by Andrew Cotter on 9/28/16.
 //
 //
-
+#pragma once
 #include "ofMain.h"
+#include "ofApp.h"
 #include "ParticleSystem.hpp"
-#include "Planetoid.hpp"
 
 class Ship {
+    
 public:
+    
     Ship();
     void update();
     void applyForces();
@@ -19,6 +21,9 @@ public:
     void splode();
     void thrust();
     void display();
+    
+    
+//private:
     
     ofPoint location;
     ofPoint velocity;
@@ -31,4 +36,6 @@ public:
     float heading = 0;
     float r =6;
     bool thrusting = false;
+    
+    
 };

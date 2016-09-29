@@ -30,16 +30,16 @@ class ofApp : public ofBaseApp{
     Ship ship;
     
     float points;
-    float g = 1.0;
-    int go = 0;
-    int opaque = 0;
-    ofColor pink = "#F2676A";
-    ofColor yellow = "#FBE087";
-    ofColor lightMauve = "#AD2959";
-    ofColor mauve = "#62013C";
-    ofColor lightGreen = "#A6F2DB";
-    ofColor aqua = "#7BCACE";
-    ofColor blue = "#678EB4";
-    ofColor darkPurp = "#4F4E79";
-    float diedAfter = -0.5;
+    float g;
+    int go;
+    int opaque;
+    ofColor pink;
+    ofColor yellow;
+    ofColor lightMauve;
+    ofColor mauve;
+    ofColor lightGreen;
+    ofColor aqua;
+    ofColor blue;
+    ofColor darkPurp;
+    float diedAfter;
 };

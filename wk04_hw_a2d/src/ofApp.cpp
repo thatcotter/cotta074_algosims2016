@@ -7,19 +7,19 @@ void ofApp::setup(){
     g = 1.0;
     go = 0;
     opaque = 0;
-    pink = "#F2676A";
-    yellow = "#FBE087";
-    lightMauve = "#AD2959";
-    mauve = "#62013C";
-    lightGreen = "#A6F2DB";
-    aqua = "#7BCACE";
-    blue = "#678EB4";
-    darkPurp = "#4F4E79";
+    pink = ofColor(242, 103, 106);
+    yellow = ofColor(251, 224, 135);
+    lightMauve = ofColor(173, 41, 89);
+    mauve = ofColor(98, 1, 60);
+    lightGreen = ofColor(166, 242, 219);
+    aqua = ofColor(123, 202, 206);
+    blue = ofColor(103, 142, 180);
+    darkPurp = ofColor(79, 78, 121);
     diedAfter = -0.5;
     
     planetoids.resize(18);
-    for (int i = 0; i < planetoids; i++) {
-//        planetoids[i].setup();
+    for (int i = 0; i < 18; i++) {
+        planetoids[i].setup(ofRandom(0.5, 1.5), ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
     }
 
 }
@@ -31,6 +31,14 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    for (int i = 0; i < 60; i++) {
+        for (int j = 0; j < 45; j++) {
+            ofSetColor(lightGreen);
+//            ellipseMode(CENTER);
+            ofDrawEllipse(ofGetWidth()/45*i-60, ofGetWidth()/50*j-45, 1, 1);
+        }
+    }
 
 }
 

@@ -47,9 +47,9 @@ void Planetoid::display(){
 };
 
 ofPoint Planetoid::attractP(Planetoid _p){
-    ofPoint force=PVector.sub(location, _p.location);
-    float distance=force.mag();
-    distance = constrain(distance, 5.0, 50.0);
+    ofPoint force = location - _p.location);
+    float distance= force.length();
+    distance = ofClamp(distance, 5.0, 50.0);
     force.normalize();
     float strength = (g * mass * _p.mass) / (distance * distance);
     force *= strength;
@@ -57,11 +57,11 @@ ofPoint Planetoid::attractP(Planetoid _p){
 };
 
 ofPoint Planetoid::attractS(Ship _s){
-    ofPoint force = this.location -  _s.location);
-    float distance = force.mag();
-    distance = constrain(distance, 5.0, 70.0);
+    ofPoint force = location -  _s.location;
+    float distance = force.length();
+    distance = ofClamp(distance, 5.0, 70.0);
     force.normalize();
-    float strength = (g * mass * _s.mass) / (distance * distance);
+    float strength = (1.0 * mass * _s.mass) / (distance * distance);
     force *= strength;
     return force;
 };
