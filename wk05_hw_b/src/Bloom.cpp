@@ -1,5 +1,5 @@
 //
-//  Blade.cpp
+//  Bloom.cpp
 //  wk05_hw_a
 //
 //  Created by Andrew Cotter on 10/1/16.
@@ -76,7 +76,7 @@ bool Bloom::grow(){
 void Bloom::addBranch( Particle *_p ){
     
     Particle tempP;
-    tempP.setInit( _p->pos, _p->getVelocity());
+    tempP.setInit( _p->getPosition(), _p->getVelocity());
     
     Spring tempS;
     tempS.set( _p, &tempP);

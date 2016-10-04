@@ -1,5 +1,5 @@
 //
-//  Blade.hpp
+//  Bloom.hpp
 //  wk05_hw_a
 //
 //  Created by Andrew Cotter on 10/1/16.
