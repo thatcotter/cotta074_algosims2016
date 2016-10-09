@@ -9,6 +9,7 @@
 #pragma once 
 #include "ofMain.h"
 #include "Particle.hpp"
+//#include "Bloom.hpp"
 
 class Spring{
 

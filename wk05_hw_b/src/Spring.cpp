@@ -27,6 +27,7 @@ void Spring::set(Particle *_A, Particle *_B){
     //"->" if you have a pointer to an object and you want to call that object's funtion
     
     restDist = A->pos.distance(B->pos);
+//    cout << restDist << endl;
 }
 
 void Spring::update(){
@@ -37,12 +38,18 @@ void Spring::update(){
     
     //pointer notation to implement Hooke's Law
     //steps of making the spring "springy"
-    ofVec2f force = A->pos - B->pos;
+    ofPoint force = A->getPosition() - B->getPosition();
+    
+//    cout << force << endl;
+    
     float currentLength = force.length();
     float x = currentLength - restDist;
     
     //Tao and Nick vector math working group
     force.normalize();
+    
+//    cout << force << endl;
+
     
     force *= k *x; //hookes law
     
@@ -51,6 +58,8 @@ void Spring::update(){
     }
     
     B->addForce(force*0.5);
+    
+//    cout << force << endl;
     
 }
 

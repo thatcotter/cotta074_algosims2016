@@ -23,7 +23,7 @@ public:
     void update();
     void draw();
     bool grow();
-    void addBranch( Particle *_p );
+    void addBranch( Particle * _p );
     
 //private:
     vector<Particle> particles;
@@ -32,6 +32,8 @@ public:
     float numPart;
     float numSpri;
     ofPoint root;
+    
+    int partIndex;
 };
 
 #endif /* Blade_hpp */

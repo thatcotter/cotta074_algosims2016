@@ -16,7 +16,7 @@ void ofApp::update(){
     
     for (int i = 0; i < 50; i++) {
         grass[i].update();
-//        int temp =grass[i].numPart;
+        int temp =grass[i].numPart;
         for (int j = 0; j < 12; j++) {
             grass[i].particles[j].addForce(wind);
         }

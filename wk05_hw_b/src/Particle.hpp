@@ -8,6 +8,8 @@
 #pragma once
 
 #include "ofMain.h"
+//#include "Spring.hpp"
+//#include "Bloom.hpp"
 
 class Particle {
 public:

@@ -14,6 +14,8 @@ Bloom::Bloom(){
 
 void Bloom::setup(float _rootX, float _rootY){
     
+    partIndex = 0;
+    
     root.x = _rootX;
     root.y = _rootY;
     
@@ -24,9 +26,9 @@ void Bloom::setup(float _rootX, float _rootY){
     particles[0].bFix = true;
     particles[0].fixedX = ofGetWidth();
     
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 10; i++) {
         if (this->grow()) {
-            this->addBranch( &particles[0] );
+            this->addBranch( &particles[partIndex] );
         }
     }
     
@@ -73,18 +75,30 @@ bool Bloom::grow(){
 }
 
 
-void Bloom::addBranch( Particle *_p ){
+void Bloom::addBranch( Particle * _p ){
     
-    Particle tempP;
-    tempP.setInit( _p->getPosition(), _p->getVelocity());
+    Particle tempP; //make a temporary particle
+    tempP.setInit( _p->getPosition(), _p->getVelocity()); //set its vectors to that of * _p
+    tempP.bFix = false; //it's position isn't fixed
+    tempP.pos += ofPoint( ofRandom( -10, 10),
+                          ofRandom( -10, 10),
+                          ofRandom( -10, 10)); //vary the position a little
     
-    Spring tempS;
-    tempS.set( _p, &tempP);
-    tempS.restDist = 20;
+    Spring tempS; //make a temporary spring
+    tempS.set( _p, &tempP); //pass pointers to the particles into the spring
+    tempS.restDist = 20; // set the rest distance
     
-    particles.push_back(tempP);
-    springs.push_back(tempS);
     
-    cout << "grow" << endl;
+    particles.push_back(tempP); //save the temp particle to the array
+    partIndex += 1; //add to the index value
+    
+    springs.push_back(tempS); //add the temp spring to the array
+    
+    
+    
+//    springs[partIndex - 1].set( _p, &particles[partIndex]);
+//    springs[partIndex - 1].restDist = 20;
+    
+//    cout << springs.size() << endl;
     
 }

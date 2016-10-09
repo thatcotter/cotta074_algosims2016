@@ -16,7 +16,7 @@ Blade::Blade(){
     numSpri = numPart - 1;
     
     particles[0].bFix = true;
-    particles[0].fixedX = ofRandom(ofGetWidth());
+//    particles[0].fixedX = ofRandom(ofGetWidth());
     
     for(int i =0; i < numPart; i++){
         

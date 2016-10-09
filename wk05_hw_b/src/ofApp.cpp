@@ -20,8 +20,8 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    cout << myBloom.particles.size() << endl;
-    cout << myBloom.springs.size() << endl;
+//    cout << myBloom.particles.size() << endl;
+//    cout << myBloom.springs.size() << endl;
 }
 
 //--------------------------------------------------------------

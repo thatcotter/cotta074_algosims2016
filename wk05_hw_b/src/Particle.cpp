@@ -70,7 +70,7 @@ void Particle::addForce(ofPoint _force){
 
 void Particle::draw() {
     
-    ofSetColor(150, 150, 50, 100);
+    ofSetColor(200, 200, 200, 200);
     ofDrawCircle(pos, radius);
     
     ofPoint velNormal = vel;
