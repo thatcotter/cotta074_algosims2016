@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Path.hpp"
+#include "Vehicle.hpp"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -13,12 +16,19 @@ class ofApp : public ofBaseApp{
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
+//		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
 		void mouseEntered(int x, int y);
 		void mouseExited(int x, int y);
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+    void newPath();
+    vector<vehicle> cars;
+    
+    path p;
+    
+    ofxFloatSlider rad;
+    ofxFloatSlider amp;
+    ofxPanel gui;
 };
