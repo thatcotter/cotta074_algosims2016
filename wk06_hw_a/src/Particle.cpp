@@ -97,9 +97,35 @@ void Particle::draw() {
     ofPushMatrix();
     ofTranslate( pos );
     
+//    float rotAmt = atan2( vel.y, vel.x );
+//    ofRotate( ofRadToDeg(rotAmt) + 90 );
+//    ofDrawRectangle( 0,0, 20, 40);
+//    
+//    ofPopMatrix();
+    
     float rotAmt = atan2( vel.y, vel.x );
     ofRotate( ofRadToDeg(rotAmt) + 90 );
-    ofDrawRectangle( 0,0, 20, 40);
+    
+    ofBeginShape();
+    ofTranslate(0, -60);
+    for (int i = 80; i >= 0; i -= 20) {
+        // for (var i = 0; i < 180; i+=20){
+        int x = sin(ofWrapRadians(i)) * i /3;
+        int angle = cos(ofWrapRadians(i + ofGetFrameNum())) ;
+        // var angle = sin(radians(i+this.s)) * 50;
+        ofVertex(-x, i);
+        ofVertex(-x, i);
+    }
+    
+    for (int i = 0; i <= 80; i += 20) {
+        int x = sin(ofWrapRadians(i)) * i /3;
+        int angle = cos(ofWrapRadians(i + ofGetFrameNum())) ;
+        // var angle = sin(radians(i+this.s)) * 50;
+        ofVertex(x, i);
+        ofVertex(x, i);
+    }
+    ofEndShape();
     
     ofPopMatrix();
+    
 }

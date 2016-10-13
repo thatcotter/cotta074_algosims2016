@@ -61,7 +61,7 @@ void path::draw(){
     
     ofSetColor(255,0,0);
     ofNoFill();
-    //glLineWidth(radius*2);
+    glLineWidth(radius*2);
     
     ofBeginShape();
     
