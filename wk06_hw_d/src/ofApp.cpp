@@ -40,17 +40,17 @@ void ofApp::draw(){
     ofSetColor(243,91,37,200);
     
 //    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
-    
-    for(int i = 0; i < particles.size(); i++){
-        particles[i].draw();
-    }
-//    vector<ofPoint> pts;
-//    for (int i = 0; i < particles.size(); i++) {
-//        pts.push_back(particles[i].pos);
+//    
+//    for(int i = 0; i < particles.size(); i++){
+//        particles[i].draw();
 //    }
-//    string.addVertices(pts);
-//    string.draw();
-//    string.clear();
+    vector<ofPoint> pts;
+    for (int i = 0; i < particles.size(); i++) {
+        pts.push_back(particles[i].pos);
+    }
+    string.addVertices(pts);
+    string.draw();
+    string.clear();
     
     cam.end();
     light.disable();
