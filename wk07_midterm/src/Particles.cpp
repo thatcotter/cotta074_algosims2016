@@ -2,7 +2,7 @@
 //  Particles.cpp
 //  myFlocking
 //
-//  Based on class example by Regina Flores on 9/25/14.
+//  Based on class example by Regina Flores on 10/6/16.
 //
 //
 
