@@ -26,7 +26,7 @@ class ofApp : public ofBaseApp{
     
         vector<Particle> flock;
     
-        vector<Particle> leaders;
+//        vector<Particle> leaders;
     
         ofEasyCam cam;
         ofLight light;
@@ -51,7 +51,6 @@ class ofApp : public ofBaseApp{
         ofPolyline outLine;
     
     private:
-        //based on the oF Fimata example
         void setupArduino(const int & version);
         void digitalPinChanged(const int & pinNum);
         void analogPinChanged(const int & pinNum);

@@ -2,6 +2,9 @@
 
 //arduino functions come from the oF firmata example
 
+//sound synthesis is based on the example
+//in the ofBook chapter for sound by Adam Carlucci
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
@@ -171,7 +174,7 @@ void ofApp::update(){
         flock[i].sepMult = sep;
         flock[i].alliMult = ali;
         flock[i].update(flock);
-        flock[i].update(leaders);
+//        flock[i].update(leaders);
         flock[i].bounding();
         
     }

@@ -2,7 +2,7 @@
 //  Particles.h
 //  myFlocking
 //
-//  Created by Regina Flores on 9/25/14.
+//  Based on class example by Regina Flores on 9/25/14.
 //
 //
 #pragma once
