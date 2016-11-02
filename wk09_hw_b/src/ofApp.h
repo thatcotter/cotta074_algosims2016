@@ -1,6 +1,10 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Particle.h"
+#include "FlowField.h"
+#include "ParticleSystem.hpp"
+#include "VectorPuck.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +24,14 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+    
+    ParticleSystem  system;
+    FlowField       field;
+    VectorPuck      puck;
+    
+    ofFbo           fbo1, fbo2;
+    
+    bool drag;
+    bool debug;
+    
 };

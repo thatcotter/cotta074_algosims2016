@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +21,19 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+    ofTrueTypeFont          fontSmall;
+    
+    ofxPanel				gui;
+    
+    ofParameter<int>		numParticles;
+    ofParameter<float>		randomOffset;
+    ofParameter<float>		noiseMagnitude;
+    ofParameter<float>		spaceFrequency;
+    ofParameter<float>		timeFrequency;
+    ofParameter<float>		oldVelAmount;
+    ofParameter<float>		maxVel;
+    ofParameter<float>		maxAge;
+    bool					drawGui;
 		
 };
