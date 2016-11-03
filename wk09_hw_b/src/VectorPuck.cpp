@@ -12,7 +12,7 @@ VectorPuck::VectorPuck(){
     
     pos = ofPoint(ofGetWidth()/2,ofGetHeight()/2);
 //    force = 0;
-    radius = 200;
+    radius = 400;
     strength = 2.0;
     
 }

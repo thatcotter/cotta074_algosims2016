@@ -18,7 +18,7 @@ class Particle {
     ofVec2f vel;
     ofVec2f accel;
     float mass;
-    int age;
+    float age;
     
     void applyForce( ofVec2f force );
     void update();

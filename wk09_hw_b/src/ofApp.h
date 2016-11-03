@@ -28,10 +28,11 @@ class ofApp : public ofBaseApp{
     ParticleSystem  system;
     FlowField       field;
     VectorPuck      puck;
+    VectorPuck      puck2;
     
     ofFbo           fbo1, fbo2;
     
-    bool drag;
+    bool drag, drag2;
     bool debug;
     
 };

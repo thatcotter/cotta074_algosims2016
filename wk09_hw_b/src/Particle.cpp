@@ -11,7 +11,7 @@
 Particle::Particle() {
     mass = 1.0;
     age = 0;
-    hue.setHsb(ofRandom(255),255,255);
+    hue.setHsb(ofRandom(64, 192),192,255);
 }
 
 void Particle::applyForce(ofVec2f force){
@@ -33,7 +33,7 @@ void Particle::draw() {
 }
 
 bool Particle::isDead(){
-    if(this->age < 255){
+    if(this->age < 1000){
         return false;
     }else{
         return true;

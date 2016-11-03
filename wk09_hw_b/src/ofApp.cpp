@@ -16,7 +16,12 @@ void ofApp::setup(){
     field.setup( ofGetWidth(), ofGetHeight(), 24 );
     system.setup();
     puck.setup();
+    
+    puck2.setup();
+    puck2.pos = ofPoint( 200, 200 );
+    
     drag = false;
+    drag2 = false;
     debug = false;
     
 }
@@ -29,6 +34,7 @@ void ofApp::update(){
     ofSetWindowTitle(strm.str());
     
     puck.update(field);
+//    puck2.update(field);
     system.update(field);
     field.update();
     
@@ -51,6 +57,7 @@ void ofApp::draw(){
     fbo2.draw(0,0);
     
     puck.display();
+//    puck2.display();
 }
 
 //--------------------------------------------------------------
@@ -77,6 +84,9 @@ void ofApp::mouseDragged(int x, int y, int button){
     if (drag) {
         puck.pos = ofPoint(x,y);
     }
+    if (drag2) {
+        puck2.pos = ofPoint(x,y);
+    }
 }
 
 //--------------------------------------------------------------
@@ -87,11 +97,17 @@ void ofApp::mousePressed(int x, int y, int button){
             drag = true;
         }
     }
+    if (x > puck2.pos.x-20 && x < puck2.pos.x+20) {
+        if (y > puck2.pos.y-20 && y < puck2.pos.y+20) {
+            drag2 = true;
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
     drag = false;
+    drag2 = false;
 }
 
 //--------------------------------------------------------------

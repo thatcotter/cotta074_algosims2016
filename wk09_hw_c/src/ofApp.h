@@ -2,6 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "ParticleSystem.hpp"
+#include "Flowfield.h"
+#include "VectorPuck.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -35,5 +38,12 @@ class ofApp : public ofBaseApp{
     ofParameter<float>		maxVel;
     ofParameter<float>		maxAge;
     bool					drawGui;
+    bool                    drawField;
+    bool                    drag;
 		
+    ParticleSystem          pSysytem;
+    Flowfield               field;
+    VectorPuck              puck;
+    
+    ofEasyCam               cam;
 };
