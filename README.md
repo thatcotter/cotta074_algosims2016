@@ -9,3 +9,7 @@ Currently, I'm getting an error in part B. I think it has to do with the particl
 ## Notes on week 6:
 
 The assignment on the [12 Principles of Animation](https://vimeo.com/93206523), now extra credit, is in part C
+
+## Notes on week 10:
+
+In exercise b, I was only partially successful in taking video from the web cam and applying it to the sphere. While the sphere does change color, the texture is very low in resolution, and the verticies extrude uniformly
