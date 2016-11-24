@@ -10,6 +10,7 @@
 #define FieldGrid_hpp
 #include "ofMain.h"
 #include "FlowField.h"
+#include "Camera2D.hpp"
 
 #include <stdio.h>
 
@@ -18,7 +19,7 @@ public:
     FieldGrid();
     void setup();
     void update();
-    void draw();
+    void draw(Camera2D _cam);
     
     vector<vector<FlowField>> tiles;
     

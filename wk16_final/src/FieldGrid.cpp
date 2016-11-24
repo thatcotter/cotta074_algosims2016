@@ -53,11 +53,11 @@ void FieldGrid::update(){
     
 }
 
-void FieldGrid::draw(){
+void FieldGrid::draw(Camera2D _cam){
     
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            tiles[i][j].draw();
+            tiles[i][j].draw(_cam);
         }
     }
     

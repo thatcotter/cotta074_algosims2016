@@ -8,6 +8,7 @@
 
 #pragma once
 #include "ofMain.h"
+#include "Camera2D.hpp"
 
 class FlowField {
   public:
@@ -18,7 +19,7 @@ class FlowField {
     void setPerlin();
     
     void update();
-    void draw();
+    void draw(Camera2D _cam);
     
     ofVec2f getForceAtPosition( ofVec2f pos );
     
@@ -28,6 +29,9 @@ class FlowField {
     void addRepelForce( float x, float y, float radius, float strength );
     void addAttractForce( float x, float y, float radius, float strength );
     void addCircularForce( float x, float y, float radius, float strength );
+    
+    void addFalloffAttractForce( float x, float y, float radius, float strength );
+    void addFalloffCircularForce( float x, float y, float radius, float strength );
     
     vector< vector<ofVec2f> >  flowList;
     int                 fieldWidth, fieldHeight, resolution;

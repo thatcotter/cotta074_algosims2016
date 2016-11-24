@@ -20,6 +20,7 @@ public:
     void setup();
     void update(FlowField &field);
     void display();
+    void drawGravity(float _size, int _iterations);
     
     ofPoint pos;
     ofPoint force;

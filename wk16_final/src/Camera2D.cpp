@@ -16,15 +16,15 @@ Camera2D::Camera2D(){
     upOutBound = ofGetHeight() * 0.2;
     downOutBound = ofGetHeight() * 0.8;
     
-    leftInBound = ofGetWidth() * 0.25;
-    rightInBound = ofGetWidth() * 0.75;
+    leftInBound = ofGetWidth() * 0.4;
+    rightInBound = ofGetWidth() * 0.6;
     
-    upInBound = ofGetHeight() * 0.25;
-    downInBound = ofGetHeight() * 0.75;
+    upInBound = ofGetHeight() * 0.4;
+    downInBound = ofGetHeight() * 0.6;
     
     rightComp, leftComp, upComp, downComp = false;
     
-    catchUpSpeed = 0.13;
+    catchUpSpeed = 0.08;
     
 }
 
@@ -93,7 +93,6 @@ void Camera2D::xenoToPointX(float _bound, float _target){
     float oldBound = _bound;
     _bound = catchUpSpeed * _target + (1-catchUpSpeed) *_bound;
     float deltaBound = _bound - oldBound;
-    cout << deltaBound << endl;
     
     rightInBound += deltaBound;
     rightOutBound += deltaBound;
@@ -108,7 +107,6 @@ void Camera2D::xenoToPointY(float _bound, float _target){
     float oldBound = _bound;
     _bound = catchUpSpeed * _target + (1-catchUpSpeed) *_bound;
     float deltaBound = _bound - oldBound;
-//    cout << deltaBound << endl;
     
     upInBound += deltaBound;
     upOutBound += deltaBound;
@@ -122,6 +120,34 @@ ofVec2f Camera2D::getOrigin(){
     return this->origin;
 }
 
+ofVec2f Camera2D::getMinBounds(){
+    ofVec2f windowSize(ofGetWidth(), ofGetHeight());
+    ofVec2f maxBounds = this->origin * -1.0;
+    return maxBounds;
+}
+
+ofVec2f Camera2D::getMaxBounds(){
+    ofVec2f windowSize(ofGetWidth(), ofGetHeight());
+    ofVec2f maxBounds = (this->origin * -1.0) + windowSize;
+    return maxBounds;
+}
+
+bool Camera2D::isInView(ofVec2f _pos, float _offset){
+    
+    if(_pos.x+_offset > this->getMinBounds().x &&
+       _pos.y+_offset > this->getMinBounds().y &&
+       _pos.x-_offset < this->getMaxBounds().x &&
+       _pos.y-_offset < this->getMaxBounds().y){
+        
+        return true;
+        
+    }else{
+        
+        return false;
+        
+    }
+}
+
 bool Camera2D::switchDebug(){
     this->debug = !this->debug;
 }
@@ -129,7 +155,13 @@ bool Camera2D::switchDebug(){
 void Camera2D::begin(){
     
     ofPushMatrix();
-    ofTranslate(origin.x, origin.y);
+    
+    if (debug) {
+        ofScale(0.5, 0.5);
+        ofTranslate(origin.x+ofGetWidth()/2, origin.y+ofGetHeight()/2);
+    }else{
+        ofTranslate(origin.x, origin.y);
+    }
     
 }
 
@@ -147,6 +179,10 @@ void Camera2D::end(){
         ofDrawLine(leftInBound, downInBound, rightInBound, downInBound);
         ofDrawLine(leftInBound, upInBound, leftInBound, downInBound);
         ofDrawLine(rightInBound, upInBound, rightInBound, downInBound);
+        
+        ofNoFill();
+        ofDrawRectangle(origin.x*-1, origin.y*-1, ofGetWidth(), ofGetHeight());
+        ofFill();
     }
     
     ofPopMatrix();

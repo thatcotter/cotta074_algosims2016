@@ -11,7 +11,6 @@
 VectorPuck::VectorPuck(){
     
     pos = ofPoint(ofGetWidth()/2,ofGetHeight()/2);
-//    force = 0;
     radius = 200;
     strength = 2.0;
     
@@ -26,7 +25,7 @@ void VectorPuck::setup(){
 void VectorPuck::update(FlowField &field){
     
     field.addAttractForce(pos.x, pos.y, radius, strength);
-    field.addCircularForce(pos.x, pos.y, radius, strength/3);
+    field.addCircularForce(pos.x, pos.y, radius, strength/4);
     
 }
 
@@ -36,12 +35,20 @@ void VectorPuck::display(){
     ofSetCircleResolution(30);
     
     ofNoFill();
-    ofDrawCircle(pos, radius);
-    ofDrawCircle(pos, radius*.75);
-    ofDrawCircle(pos, radius*.5);
-    ofDrawCircle(pos, radius*.25);
+    this->drawGravity(radius, 4);
     
-    ofFill();
-    ofDrawCircle(pos, 20);
+}
+
+void VectorPuck::drawGravity(float _size, int _iterations){
     
+    float size = _size;
+    int iterations = _iterations;
+    
+    if (_iterations > 0) {
+        ofDrawCircle(pos, size);
+        this->drawGravity(size/2, iterations - 1);
+    }else{
+        ofFill();
+        ofDrawCircle(pos, size);
+    }
 }

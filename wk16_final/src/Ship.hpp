@@ -16,6 +16,7 @@ class Ship : public Particle{
 public:
     Ship();
     virtual void draw();
+    void drawFuel();
     virtual void update(FlowField field);
     void turn();
     void thrust();
@@ -26,6 +27,8 @@ public:
     bool    left;
     bool    right;
     bool    boost;
+    
+    float   fuel;
     
     ofMesh rocket;
     ParticleSystem ps;

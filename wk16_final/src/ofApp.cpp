@@ -10,8 +10,8 @@ void ofApp::setup(){
     ofSetFrameRate(60);
     
     gui.setup();
-    gui.add(gravity.setup("gravity", 1.5, 0.0, 3.0));
-    gui.add(radius.setup("radius", 200.0, 0.0, 1000.0));
+    gui.add(gravity.setup("gravity", 1.0, 0.0, 3.0));
+    gui.add(radius.setup("radius", 400.0, 0.0, 1000.0));
     gui.add(turning.setup("turning speed", 3.6, 0.01, 8.0));
     
     fbo1.clear();
@@ -21,7 +21,7 @@ void ofApp::setup(){
     fbo2.allocate( ofGetWidth()*3, ofGetHeight()*3 );
     
     field.setup( ofGetWidth()*3, ofGetHeight()*3, 24 );
-//    grid.setup();
+
     
     for (int i = 0; i < 12; i++) {
         VectorPuck vp;
@@ -32,8 +32,6 @@ void ofApp::setup(){
     
     debug = false;
     
-//    styleTile.load("voyage_style_tile.jpg");
-//    present = true;
 }
 
 //--------------------------------------------------------------
@@ -46,43 +44,25 @@ void ofApp::update(){
     for (int i = 0; i < pucks.size(); i++) {
         pucks[i].strength = gravity;
         pucks[i].radius = radius;
-        pucks[i].update(field);
-//        for (int i = 0; i < grid.tiles.size(); i++) {
-//            for (int j = 0; j < grid.tiles[i].size(); j++){
-//                ofVec2f lowerBounds = grid.tiles[i][j].origin;
-//                ofVec2f upperBounds = grid.tiles[i][j].origin
-//                + ofVec2f(ofGetWidth(),ofGetHeight());
-//                if ( pucks[i].pos.x > lowerBounds.x && pucks[i].pos.y > lowerBounds.y ) {
-//                    if ( pucks[i].pos.x < upperBounds.x && pucks[i].pos.y < upperBounds.y ) {
-//                        pucks[i].update(grid.tiles[i][j]);
-//                    }
-//                }
-//            }
+        
+//        if (ofGetFrameNum()%60 == 0) {
+//            cout << "cam min = " << cam.getMinBounds() << endl;
+//            cout << "cam max = " << cam.getMaxBounds() << endl;
 //        }
+        
+        if (cam.isInView(pucks[i].pos, pucks[i].radius)) {
+            
+            pucks[i].update(field);
+//            cout << "updated puck " << i << endl;
+            
+        }
     }
     
     ship.thetaInc = turning;
     ship.update(field);
-//    for (int i = 0; i < grid.tiles.size(); i++) {
-//        for (int j = 0; j < grid.tiles[i].size(); j++){
-//            ofVec2f lowerBounds = grid.tiles[i][j].origin;
-//            ofVec2f upperBounds = grid.tiles[i][j].origin
-//                                + ofVec2f(ofGetWidth(),ofGetHeight());
-//            if ( ship.pos.x > lowerBounds.x && ship.pos.y > lowerBounds.y ) {
-//                if ( ship.pos.x < upperBounds.x && ship.pos.y < upperBounds.y ) {
-//                    ship.update(grid.tiles[i][j]);
-//                }
-//            }
-//        }
-//    }
     
     ship.turn();
     field.update();
-//    for (int i = 0; i < grid.tiles.size(); i++) {
-//        for (int j = 0; j < grid.tiles[i].size(); j++){
-//            grid.tiles[i][j].update();      
-//        }
-//    }
 
     cam.update(ship.pos);
     
@@ -96,33 +76,35 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    
     cam.begin();
     
     fbo2.begin();
     fbo1.draw(0,0);
     fbo2.end();
     fbo2.draw(0,0);
+
     
     if (debug) {
-        field.draw();
-//        for (int i = 0; i < grid.tiles.size(); i++) {
-//            for (int j = 0; j < grid.tiles[i].size(); j++){
-//                grid.tiles[i][j].draw();
-//            }
-//        }
+        field.draw(cam);
     }
     
     for (int i = 0; i < pucks.size(); i++) {
-        pucks[i].display();
+        if (cam.isInView(pucks[i].pos, pucks[i].radius)) {
+            pucks[i].display();
+        }
     }
     
     ship.draw();
     
     cam.end();
     
+    ship.drawFuel();
+    
     if (debug) {
         gui.draw();
     }
+    
 }
 
 //--------------------------------------------------------------
@@ -173,7 +155,6 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-//    if (present == false) {
     
         for (int i = 0; i < pucks.size(); i++) {
             if (x > pucks[i].pos.x-20+cam.getOrigin().x && x < pucks[i].pos.x+20+cam.getOrigin().x) {
@@ -182,16 +163,16 @@ void ofApp::mousePressed(int x, int y, int button){
                 }
             }
         }
-//    }
+
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-//    if (present == false) {
+
         for (int i = 0; i < pucks.size(); i++) {
             pucks[i].drag = false;
         }
-//    }
+
 }
 
 //--------------------------------------------------------------

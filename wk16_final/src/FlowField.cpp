@@ -51,6 +51,7 @@ void FlowField::setPerlin() {
 void FlowField::update() {
     for( int y=0; y<flowList.size(); y++){
         for( int x=0; x<flowList[y].size(); x++){
+            
             flowList[y][x] *= 0.99;
             
             if( flowList[y][x].length() < 1.0){
@@ -177,15 +178,90 @@ void FlowField::addCircularForce(float x, float y, float radius, float strength)
     }
 }
 
-void FlowField::draw() {
+void FlowField::addFalloffAttractForce(float x, float y, float radius, float strength) {
+    float xp = x;
+    float yp = y;
+    x += origin.x;
+    y += origin.y;
+    
+    float pctX = x / fieldWidth;
+    float pctY = y / fieldWidth;
+    
+    int cols = fieldWidth / resolution;
+    int rows = fieldHeight / resolution;
+    
+    int xVal = pctX * cols;
+    int yVal = pctY * rows;
+    
+    ofVec2f mousePos(x, y);
+    
+    for( int y=0; y<flowList.size(); y++){
+        for( int x=0; x<flowList[y].size(); x++){
+            ofVec2f np( x*resolution, y*resolution );
+            
+            if( np.distance(mousePos) < radius ){
+                float pct = 1 - (np.distance(mousePos) / radius);
+                
+                // add strength against the direction it's already moving in
+                //                flowList[y][x] -= flowList[y][x].normalized() * strength;
+                
+                // add strength towards the mouse
+                ofVec2f dir = (np - mousePos);
+                flowList[y][x] -= dir.getNormalized() * strength;
+            }
+        }
+    }
+    if (radius > 100) {
+        this->addFalloffAttractForce(xp, yp, radius*0.5, strength*0.8);
+    }
+}
+
+void FlowField::addFalloffCircularForce(float x, float y, float radius, float strength) {
+    float xp = x;
+    float yp = y;
+    
+    x += origin.x;
+    y += origin.y;
+    
+    float pctX = x / fieldWidth;
+    float pctY = y / fieldWidth;
+    
+    int cols = fieldWidth / resolution;
+    int rows = fieldHeight / resolution;
+    
+    int xVal = pctX * cols;
+    int yVal = pctY * rows;
+    
+    ofVec2f mousePos(x, y);
+    
+    for( int y=0; y<flowList.size(); y++){
+        for( int x=0; x<flowList[y].size(); x++){
+            ofVec2f np( x*resolution, y*resolution );
+            
+            if( np.distance(mousePos) < radius ){
+                float pct = 1 - (np.distance(mousePos) / radius);
+                
+                // add strength towards the mouse
+                ofVec2f dir = (np - mousePos);
+                flowList[y][x].x -= dir.getNormalized().y * strength;
+                flowList[y][x].y += dir.getNormalized().x * strength;
+            }
+        }
+    }
+    if (radius > 100) {
+        this->addFalloffCircularForce(xp, yp, radius*0.5, strength*0.8);
+    }
+}
+
+void FlowField::draw(Camera2D _cam) {
     for( int y=0; y<flowList.size(); y++){
         for( int x=0; x<flowList[y].size(); x++){
             ofVec2f np( x*resolution+origin.x, y*resolution+origin.y );
-            drawVectorAt( flowList[y][x], np, flowList[y][x].length() );
+            if (_cam.isInView(np, 25)) {
+                drawVectorAt( flowList[y][x], np, flowList[y][x].length() );
+            }            
             
-            
-            
-            ofVec2f tmpPos(x*resolution, y*resolution);
+//            ofVec2f tmpPos(x*resolution, y*resolution);
         }
     }
 }

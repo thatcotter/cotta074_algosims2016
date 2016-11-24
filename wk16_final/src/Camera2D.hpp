@@ -24,6 +24,10 @@ public:
     void xenoToPointY(float _bound, float _target);
     
     ofVec2f getOrigin();
+    ofVec2f getMinBounds();
+    ofVec2f getMaxBounds();
+    bool    isInView(ofVec2f _pos, float _offset);
+    
     bool    switchDebug();
     
     void begin();
