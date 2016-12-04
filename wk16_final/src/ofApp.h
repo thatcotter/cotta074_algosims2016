@@ -1,11 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ParticleSystem.hpp"
-#include "VectorPuck.hpp"
-#include "Ship.hpp"
-#include "Camera2D.hpp"
-#include "FieldGrid.hpp"
+
+#include "StartScreen.hpp"
+#include "FlowfieldLevel.hpp"
+#include "NewtonianLevel.hpp"
+#include "LevelSelect.hpp"
+
+#include "SceneManager.hpp"
 #include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
@@ -27,25 +29,13 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-    FlowField       field;
-    FieldGrid       grid;
+    SceneManager    scenes;
+    StartScreen     start;
+//    FlowfieldLevel  demoLevel;
+    NewtonianLevel  newtLevel1;
+    NewtonianLevel  newtLevel2;
+    LevelSelect     selectScreen;
     
+    ofSoundPlayer   music;
     
-    vector<VectorPuck> pucks;
-    
-    Ship ship;
-    
-    ofFbo           fbo1, fbo2;
-    
-    bool debug;
-    
-    ofxPanel        gui;
-    ofxFloatSlider  gravity;
-    ofxFloatSlider  radius;
-    ofxFloatSlider  turning;
-    
-    Camera2D        cam;
-    
-//    ofImage         styleTile;
-//    bool            present;
 };

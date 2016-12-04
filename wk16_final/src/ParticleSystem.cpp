@@ -25,13 +25,40 @@ void ParticleSystem::update(FlowField field){
     
     for (int i = 0; i < particles.size(); i++) {
         
-        particles[i].age++;
+        particles[i].age += 3;
         if (particles[i].isDead()) {
             this->removeParticle(i);
         }
         particles[i].update(field);
     }
     
+}
+
+void ParticleSystem::updateNewt(vector<Planetoid> planets){
+    
+    for (int i = 0; i < particles.size(); i++) {
+        
+        particles[i].age+=3;
+        if (particles[i].isDead()) {
+            this->removeParticle(i);
+        }
+        for (int j = 0; j < planets.size(); j++) {
+            particles[i].updateGrav(planets[j]);
+        }
+        
+    }
+}
+
+void ParticleSystem::updateGravity(Planetoid planet){
+    
+    for (int i = 0; i < particles.size(); i++) {
+        
+        particles[i].age++;
+        if (particles[i].isDead()) {
+            this->removeParticle(i);
+        }
+        particles[i].updateGrav(planet);
+    }
 }
 
 void ParticleSystem::display(){

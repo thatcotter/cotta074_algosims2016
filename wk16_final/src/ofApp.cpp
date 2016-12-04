@@ -4,33 +4,20 @@
 void ofApp::setup(){
 //    ofToggleFullscreen();
     
-    cam.setup(ship.pos);
     
     ofBackground(64);
     ofSetFrameRate(60);
+    ofEnableAntiAliasing();
     
-    gui.setup();
-    gui.add(gravity.setup("gravity", 1.0, 0.0, 3.0));
-    gui.add(radius.setup("radius", 400.0, 0.0, 1000.0));
-    gui.add(turning.setup("turning speed", 3.6, 0.01, 8.0));
+    start.setup("Voyage", "A spacetime oddyssey", "Press Any Key to Begin");
+//    demoLevel.setup();
+    newtLevel1.setup();
+    newtLevel2.setup();
+    selectScreen.setup();
     
-    fbo1.clear();
-    fbo2.clear();
-    
-    fbo1.allocate( ofGetWidth()*3, ofGetHeight()*3 );
-    fbo2.allocate( ofGetWidth()*3, ofGetHeight()*3 );
-    
-    field.setup( ofGetWidth()*3, ofGetHeight()*3, 24 );
-
-    
-    for (int i = 0; i < 12; i++) {
-        VectorPuck vp;
-        vp.pos = ofPoint(ofRandom(ofGetWidth()*3),ofRandom(ofGetHeight()*3));
-        vp.drag = false;
-        pucks.push_back(vp);
-    }
-    
-    debug = false;
+    music.load("Tri-Tachyon_-_01_-_The_Glow.mp3");
+    music.play();
+    music.setLoop(true);
     
 }
 
@@ -41,68 +28,72 @@ void ofApp::update(){
     strm << "fps: " << ofGetFrameRate();
     ofSetWindowTitle(strm.str());
     
-    for (int i = 0; i < pucks.size(); i++) {
-        pucks[i].strength = gravity;
-        pucks[i].radius = radius;
+    scenes.update(selectScreen);
+    
+    if (scenes.start) {
         
-//        if (ofGetFrameNum()%60 == 0) {
-//            cout << "cam min = " << cam.getMinBounds() << endl;
-//            cout << "cam max = " << cam.getMaxBounds() << endl;
-//        }
+        start.update();
         
-        if (cam.isInView(pucks[i].pos, pucks[i].radius)) {
-            
-            pucks[i].update(field);
-//            cout << "updated puck " << i << endl;
-            
-        }
     }
     
-    ship.thetaInc = turning;
-    ship.update(field);
+    if (scenes.levelSelect) {
+        selectScreen.update();
+    }
     
-    ship.turn();
-    field.update();
 
-    cam.update(ship.pos);
+    if (scenes.level[0] && !scenes.pause) {
+        newtLevel1.update();
+    }
     
-    fbo1.begin();
-    ofClear(0,0,0,20);
-    ship.ps.display();
-    fbo1.end();
+    if (scenes.level[1] && !scenes.pause) {
+        newtLevel2.update();
+    }
     
+    
+    if (scenes.win) {
+        
+    }
+    
+    if (scenes.lose) {
+        
+    }
+    
+
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
-    
-    cam.begin();
-    
-    fbo2.begin();
-    fbo1.draw(0,0);
-    fbo2.end();
-    fbo2.draw(0,0);
-
-    
-    if (debug) {
-        field.draw(cam);
+        
+    if (scenes.start) {
+        
+        start.draw();
+        
     }
     
-    for (int i = 0; i < pucks.size(); i++) {
-        if (cam.isInView(pucks[i].pos, pucks[i].radius)) {
-            pucks[i].display();
-        }
+    if (scenes.levelSelect) {
+        
+        selectScreen.draw();
+        
     }
     
-    ship.draw();
     
-    cam.end();
+    if (scenes.level[0]) {
+        
+        newtLevel1.draw();
+    }
     
-    ship.drawFuel();
+    if (scenes.level[1]) {
+        
+        newtLevel2.draw();
+        
+    }
     
-    if (debug) {
-        gui.draw();
+    if (scenes.win) {
+        
+    }
+    
+    if (scenes.lose) {
+        
     }
     
 }
@@ -110,69 +101,102 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
-    if(key == OF_KEY_TAB){
-        debug = !debug;
-        cam.switchDebug();
+    if (scenes.levelSelect) {
+        selectScreen.keyPressed(key);
     }
-    if(key == OF_KEY_LEFT){
-        ship.left = true;
+    
+    if (scenes.level[0]) {
+        newtLevel1.keyPressed(key);
     }
-    if(key == OF_KEY_RIGHT){
-        ship.right = true;
-    }
-    if(key == 13 || key == 32){
-        ship.boost = true;
+    
+    if (scenes.level[1]) {
+        newtLevel2.keyPressed(key);
     }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-    if(key == OF_KEY_LEFT){
-        ship.left = false;
+    
+    if (scenes.levelSelect) {
+        selectScreen.keyReleased(key);
     }
-    if(key == OF_KEY_RIGHT){
-        ship.right = false;
+    
+    if (scenes.level[0]) {
+        newtLevel1.keyReleased(key);
     }
-    if(key == 13 || key == 32){
-        ship.boost = false;
+    
+    if (scenes.level[1]) {
+        newtLevel2.keyReleased(key);
     }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    
+    if (scenes.levelSelect) {
+        selectScreen.mouseMoved(x, y);
+    }
+    
+    if (scenes.level[0]) {
+        newtLevel1.mouseMoved(x, y);
+    }
+    
+    if (scenes.level[1]) {
+        newtLevel2.mouseMoved(x, y);
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    for (int i = 0; i < pucks.size(); i++) {
-        if (pucks[i].drag) {
-            pucks[i].pos = ofPoint(x,y) - cam.getOrigin();
-        }
+    
+    if (scenes.levelSelect) {
+        selectScreen.mouseDragged(x, y, button);
     }
+
+    if (scenes.level[0]) {
+        newtLevel1.mouseDragged(x, y, button);
+    }
+    
+    if (scenes.level[1]) {
+        newtLevel2.mouseDragged(x, y, button);
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     
-        for (int i = 0; i < pucks.size(); i++) {
-            if (x > pucks[i].pos.x-20+cam.getOrigin().x && x < pucks[i].pos.x+20+cam.getOrigin().x) {
-                if (y > pucks[i].pos.y-20+cam.getOrigin().y && y < pucks[i].pos.y+20+cam.getOrigin().y) {
-                    pucks[i].drag = true;
-                }
-            }
-        }
+    if (scenes.levelSelect) {
+        selectScreen.mousePressed(x, y, button);
+    }
+    
+    if (scenes.level[0]) {
+        newtLevel1.mousePressed(x, y, button);
+    }
+    
+    if (scenes.level[1]) {
+        newtLevel2.mousePressed(x, y, button);
+    }
 
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
+    
+    if (scenes.levelSelect) {
+        selectScreen.mouseReleased(x, y, button);
+    }
 
-        for (int i = 0; i < pucks.size(); i++) {
-            pucks[i].drag = false;
-        }
-
+    if (scenes.level[0]) {
+        newtLevel1.mouseReleased(x, y, button);
+    }
+    
+    if (scenes.level[1]) {
+        newtLevel2.mouseReleased(x, y, button);
+    }
 }
 
 //--------------------------------------------------------------

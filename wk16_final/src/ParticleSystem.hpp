@@ -19,6 +19,8 @@ public:
     ParticleSystem();
     void setup();
     void update(FlowField field);
+    void updateNewt(vector<Planetoid> planets);
+    void updateGravity(Planetoid planet);
     void display();
     
     void addParticle(ofPoint start, ofPoint force);

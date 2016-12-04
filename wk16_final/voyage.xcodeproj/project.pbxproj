@@ -14,8 +14,17 @@
 		5005BB8F1DCFF77C006C400F /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5005BB891DCFF77C006C400F /* ParticleSystem.cpp */; };
 		5005BB901DCFF77C006C400F /* VectorPuck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5005BB8B1DCFF77C006C400F /* VectorPuck.cpp */; };
 		5005BB931DCFF9BB006C400F /* Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5005BB911DCFF9BB006C400F /* Ship.cpp */; };
+		503AE7081DEF4C49004A0F1E /* StarField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 503AE7061DEF4C49004A0F1E /* StarField.cpp */; };
+		5058BF851DE75E42005723E8 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5058BF831DE75E42005723E8 /* SceneManager.cpp */; };
+		5058BF881DE90246005723E8 /* StartScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5058BF861DE90246005723E8 /* StartScreen.cpp */; };
+		5058BF8B1DE91E9E005723E8 /* FlowfieldLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5058BF891DE91E9E005723E8 /* FlowfieldLevel.cpp */; };
+		5058BF8F1DE92D54005723E8 /* NewtonianLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5058BF8D1DE92D54005723E8 /* NewtonianLevel.cpp */; };
+		5058BF921DE92E2E005723E8 /* Planetoid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5058BF901DE92E2E005723E8 /* Planetoid.cpp */; };
 		509A8E501DE0F691001597EC /* Camera2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509A8E4E1DE0F691001597EC /* Camera2D.cpp */; };
 		509A8E571DE151DF001597EC /* FieldGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509A8E551DE151DF001597EC /* FieldGrid.cpp */; };
+		50C37EAB1DECC603000CA946 /* LevelSelect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C37EA91DECC603000CA946 /* LevelSelect.cpp */; };
+		50D3BE241DF31E1700871A82 /* Goal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50D3BE221DF31E1700871A82 /* Goal.cpp */; };
+		50D3BE271DF366D000871A82 /* WinScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50D3BE251DF366D000871A82 /* WinScreen.cpp */; };
 		5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C88333E71C9457E441C33474 /* ofxButton.cpp */; };
 		837220E80EB56CD44AD27F2A /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15F2C6477A769C03A56D1401 /* ofxSlider.cpp */; };
 		856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9604B925D32EE39065747725 /* ofxBaseGui.cpp */; };
@@ -72,10 +81,28 @@
 		5005BB8C1DCFF77C006C400F /* VectorPuck.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VectorPuck.hpp; sourceTree = "<group>"; };
 		5005BB911DCFF9BB006C400F /* Ship.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ship.cpp; sourceTree = "<group>"; };
 		5005BB921DCFF9BB006C400F /* Ship.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ship.hpp; sourceTree = "<group>"; };
+		503AE7061DEF4C49004A0F1E /* StarField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StarField.cpp; sourceTree = "<group>"; };
+		503AE7071DEF4C49004A0F1E /* StarField.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StarField.hpp; sourceTree = "<group>"; };
+		5058BF831DE75E42005723E8 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
+		5058BF841DE75E42005723E8 /* SceneManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneManager.hpp; sourceTree = "<group>"; };
+		5058BF861DE90246005723E8 /* StartScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StartScreen.cpp; sourceTree = "<group>"; };
+		5058BF871DE90246005723E8 /* StartScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StartScreen.hpp; sourceTree = "<group>"; };
+		5058BF891DE91E9E005723E8 /* FlowfieldLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlowfieldLevel.cpp; sourceTree = "<group>"; };
+		5058BF8A1DE91E9E005723E8 /* FlowfieldLevel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FlowfieldLevel.hpp; sourceTree = "<group>"; };
+		5058BF8D1DE92D54005723E8 /* NewtonianLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NewtonianLevel.cpp; sourceTree = "<group>"; };
+		5058BF8E1DE92D54005723E8 /* NewtonianLevel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NewtonianLevel.hpp; sourceTree = "<group>"; };
+		5058BF901DE92E2E005723E8 /* Planetoid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planetoid.cpp; sourceTree = "<group>"; };
+		5058BF911DE92E2E005723E8 /* Planetoid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Planetoid.hpp; sourceTree = "<group>"; };
 		509A8E4E1DE0F691001597EC /* Camera2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera2D.cpp; sourceTree = "<group>"; };
 		509A8E4F1DE0F691001597EC /* Camera2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera2D.hpp; sourceTree = "<group>"; };
 		509A8E551DE151DF001597EC /* FieldGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldGrid.cpp; sourceTree = "<group>"; };
 		509A8E561DE151DF001597EC /* FieldGrid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FieldGrid.hpp; sourceTree = "<group>"; };
+		50C37EA91DECC603000CA946 /* LevelSelect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelSelect.cpp; sourceTree = "<group>"; };
+		50C37EAA1DECC603000CA946 /* LevelSelect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LevelSelect.hpp; sourceTree = "<group>"; };
+		50D3BE221DF31E1700871A82 /* Goal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Goal.cpp; sourceTree = "<group>"; };
+		50D3BE231DF31E1700871A82 /* Goal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Goal.hpp; sourceTree = "<group>"; };
+		50D3BE251DF366D000871A82 /* WinScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WinScreen.cpp; sourceTree = "<group>"; };
+		50D3BE261DF366D000871A82 /* WinScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WinScreen.hpp; sourceTree = "<group>"; };
 		52AFA1F08C420992CAAAE648 /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSlider.h; path = ../../../addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
 		78D67A00EB899FAC09430597 /* ofxLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLabel.cpp; path = ../../../addons/ofxGui/src/ofxLabel.cpp; sourceTree = SOURCE_ROOT; };
 		802251BAF1B35B1D67B32FD0 /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSliderGroup.cpp; path = ../../../addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
@@ -118,6 +145,25 @@
 			name = ofxGui;
 			sourceTree = "<group>";
 		};
+		5058BF8C1DE91EA9005723E8 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				5058BF831DE75E42005723E8 /* SceneManager.cpp */,
+				50D3BE251DF366D000871A82 /* WinScreen.cpp */,
+				50D3BE261DF366D000871A82 /* WinScreen.hpp */,
+				5058BF841DE75E42005723E8 /* SceneManager.hpp */,
+				5058BF861DE90246005723E8 /* StartScreen.cpp */,
+				5058BF871DE90246005723E8 /* StartScreen.hpp */,
+				5058BF8D1DE92D54005723E8 /* NewtonianLevel.cpp */,
+				5058BF8E1DE92D54005723E8 /* NewtonianLevel.hpp */,
+				5058BF891DE91E9E005723E8 /* FlowfieldLevel.cpp */,
+				5058BF8A1DE91E9E005723E8 /* FlowfieldLevel.hpp */,
+				50C37EA91DECC603000CA946 /* LevelSelect.cpp */,
+				50C37EAA1DECC603000CA946 /* LevelSelect.hpp */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
 		509A8E581DE1657C001597EC /* Actors */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +175,12 @@
 				5005BB8A1DCFF77C006C400F /* ParticleSystem.hpp */,
 				5005BB8B1DCFF77C006C400F /* VectorPuck.cpp */,
 				5005BB8C1DCFF77C006C400F /* VectorPuck.hpp */,
+				5058BF901DE92E2E005723E8 /* Planetoid.cpp */,
+				5058BF911DE92E2E005723E8 /* Planetoid.hpp */,
+				503AE7061DEF4C49004A0F1E /* StarField.cpp */,
+				503AE7071DEF4C49004A0F1E /* StarField.hpp */,
+				50D3BE221DF31E1700871A82 /* Goal.cpp */,
+				50D3BE231DF31E1700871A82 /* Goal.hpp */,
 			);
 			name = Actors;
 			sourceTree = "<group>";
@@ -213,6 +265,7 @@
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				509A8E581DE1657C001597EC /* Actors */,
+				5058BF8C1DE91EA9005723E8 /* Scenes */,
 				509A8E591DE165A2001597EC /* Utilities */,
 			);
 			path = src;
@@ -315,22 +368,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				50C37EAB1DECC603000CA946 /* LevelSelect.cpp in Sources */,
+				5058BF881DE90246005723E8 /* StartScreen.cpp in Sources */,
 				5005BB8E1DCFF77C006C400F /* Particle.cpp in Sources */,
+				5058BF8B1DE91E9E005723E8 /* FlowfieldLevel.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				5058BF8F1DE92D54005723E8 /* NewtonianLevel.cpp in Sources */,
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,
 				5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */,
 				5005BB901DCFF77C006C400F /* VectorPuck.cpp in Sources */,
 				B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */,
+				5058BF921DE92E2E005723E8 /* Planetoid.cpp in Sources */,
+				503AE7081DEF4C49004A0F1E /* StarField.cpp in Sources */,
 				483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */,
 				F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */,
 				5005BB931DCFF9BB006C400F /* Ship.cpp in Sources */,
 				837220E80EB56CD44AD27F2A /* ofxSlider.cpp in Sources */,
 				509A8E571DE151DF001597EC /* FieldGrid.cpp in Sources */,
+				50D3BE271DF366D000871A82 /* WinScreen.cpp in Sources */,
 				5005BB8D1DCFF77C006C400F /* FlowField.cpp in Sources */,
 				509A8E501DE0F691001597EC /* Camera2D.cpp in Sources */,
+				5058BF851DE75E42005723E8 /* SceneManager.cpp in Sources */,
 				B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */,
 				1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */,
 				5005BB8F1DCFF77C006C400F /* ParticleSystem.cpp in Sources */,
+				50D3BE241DF31E1700871A82 /* Goal.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
