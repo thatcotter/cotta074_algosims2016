@@ -13,6 +13,7 @@
 #include "Ship.hpp"
 #include "Goal.hpp"
 #include "WinScreen.hpp"
+#include "PauseScreen.hpp"
 #include "Camera2D.hpp"
 #include "Planetoid.hpp"
 #include "StarField.hpp"
@@ -23,6 +24,9 @@ class NewtonianLevel{
 public:
     void setup();
     void update();
+    
+    void levelSetup(int lvl);
+    
     void draw();
     
     void keyPressed(int key);
@@ -42,12 +46,20 @@ public:
     
     Goal goal;
     
+    int  currentLevel;
+    
     vector<Planetoid> planets;
     
     WinScreen youWin;
+    PauseScreen paused;
     
     bool debug;
     bool win;
+    
+    float startTime;
+    
+    int  fuelUsed;
+    int elapsedTime;
     
     ofxPanel        gui;
     ofxFloatSlider  gravity;

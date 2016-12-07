@@ -29,11 +29,11 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+    void customLevel1(NewtonianLevel lvl1);
+    
     SceneManager    scenes;
     StartScreen     start;
-//    FlowfieldLevel  demoLevel;
-    NewtonianLevel  newtLevel1;
-    NewtonianLevel  newtLevel2;
+    NewtonianLevel  level;
     LevelSelect     selectScreen;
     
     ofSoundPlayer   music;

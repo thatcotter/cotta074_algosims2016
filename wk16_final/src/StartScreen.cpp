@@ -21,6 +21,7 @@ void StartScreen::setup(string _title, string _subtitle, string _prompt){
     time = 0;
     fade.allocate(ofGetWidth(), ofGetHeight());
     
+    background.stars.clear();
     background.setup();
 }
 
@@ -45,5 +46,10 @@ void StartScreen::draw(){
     ofDrawBitmapString(prompt, ofGetWidth()*0.4, ofGetHeight()*0.8);
     
     fade.draw(0,0);
+    
+}
+
+void StartScreen::keyPressed(int key){
+    
     
 }

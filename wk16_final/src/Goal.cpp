@@ -27,7 +27,7 @@ void Goal::update(){
 void Goal::draw(){
     
     
-    ofSetColor(255, 0, 0);
+    ofSetColor(247,56,89);
     ofDrawRectangle(this->pos.x-(radius/2), this->pos.y-(radius/2),
                     radius, radius);
     
@@ -44,11 +44,18 @@ void Goal::drawHint(ofVec2f _pos){
     
     distance *= 30;
     
-    ofSetColor(255, 0, 0);
-    ofDrawLine( _pos, this->pos );
+//    ofSetColor(255, 0, 0);
+//    ofDrawLine( _pos, this->pos );
+//    
+//    ofSetColor(0, 255, 0);
+//    ofDrawLine( _pos, (_pos - distance) );
     
-    ofSetColor(0, 255, 0);
-    ofDrawLine( _pos, (_pos - distance) );
+    ofSetColor(247,56,89);
+    for (int i = 1; i < lineDistance/30; i+=2) {
+        ofDrawCircle((_pos - distance*(i)), 3);
+    }
+    
+
 }
 
 bool Goal::collide(ofVec2f _pos){

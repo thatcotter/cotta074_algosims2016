@@ -14,11 +14,18 @@ void NewtonianLevel::setup(){
     
     //reset everything first
     planets.clear();
+    
+    background.stars.clear();
+
     ship.trail.clear();
     ship.vel = ofVec2f(0,0);
     ship.setup(ofVec2f( ofGetWidth()*3/2, ofGetWidth()*3/2) );
-    youWin.reset = false;
     
+    youWin.setup();
+    paused.setup();
+    
+    
+    //then initialize
     cam.setup(ship.pos);
     
     ofBackground(64);
@@ -42,11 +49,127 @@ void NewtonianLevel::setup(){
     debug = false;
     win = false;
     
+    fuelUsed = 0;
+    startTime = ofGetElapsedTimef();
+    
     background.setup();
+    
+}
+
+
+
+
+void NewtonianLevel::levelSetup(int lvl){
+    
+    cout << "newt: lvl == " << lvl << endl;
+    
+    currentLevel = lvl;
+    
+    //reset everything first
+    planets.clear();
+    
+    background.stars.clear();
+    
+    ship.trail.clear();
+    ship.vel = ofVec2f(0,0);
+    
     youWin.setup();
+    paused.setup();
     
-    goal.setup(ship.pos.x + 75, ship.pos.y + 75);//--------
     
+    //then initialize
+    cam.setup(ship.pos);
+    
+    ofBackground(64);
+    ofSetFrameRate(60);
+    
+    gui.setup();
+    gui.add(gravity.setup("gravity", 187.0, 0.0, 300.0));
+    gui.add(radius.setup("radius", 100.0, 0.0, 1000.0));
+    gui.add(turning.setup("turning speed", 1.65, 0.0001, 2.0));
+    gui.add(thrust.setup("thrust", 5.0, 0.000001, 50.0));
+    
+    if (lvl == 1) {
+        
+        ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
+        ship.vel = ofVec2f(0,-2);
+        
+        goal.setup(ship.pos.x + 100, ship.pos.x + 100);
+        
+        Planetoid p;
+        p.pos = ofVec2f(ship.pos - 100);
+        p.radiusSeed = 8;
+        p.drag = false;
+        planets.push_back(p);
+        
+        
+    } else if (lvl == 2) {
+        
+        ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
+        ship.vel = ofVec2f(-0.25,-1);
+        
+        goal.setup(ship.pos.x + 100, ship.pos.x + 100);
+        
+        Planetoid p;
+        p.pos = ofVec2f(ship.pos - 150);
+        p.radiusSeed = 7;
+        p.drag = false;
+        planets.push_back(p);
+        
+        p.pos = ofVec2f(ship.pos.x + 150, ship.pos.y - 150);
+        p.radiusSeed = 7;
+        p.drag = false;
+        planets.push_back(p);
+        
+        
+    } else if (lvl == 3) {
+        
+        ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
+        ship.vel = ofVec2f(-0.25,-2);
+        
+        goal.setup(ship.pos.x + 100, ship.pos.x - 100);
+        
+        Planetoid p;
+        p.pos = ofVec2f(ship.pos - 100);
+        p.radiusSeed = 7;
+        p.drag = false;
+        planets.push_back(p);
+        
+        p.pos = ofVec2f(ship.pos.x + 100, ship.pos.y - 100);
+        p.radiusSeed = 7;
+        p.drag = false;
+        planets.push_back(p);
+        
+        
+    } else if (lvl == 4) {
+        
+        ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
+        ship.vel = ofVec2f(-0.25,-2);
+        
+        goal.setup(ship.pos.x + 100, ship.pos.y + 100);
+        
+        Planetoid p;
+        p.pos = ofVec2f(ship.pos - 100);
+        p.radiusSeed = 8;
+        p.drag = false;
+        planets.push_back(p);
+        
+        p.pos = ofVec2f(ship.pos.x + 100, ship.pos.y - 100);
+        p.radiusSeed = 8;
+        p.drag = false;
+        planets.push_back(p);
+        
+        
+    }
+    
+    
+    debug = false;
+    win = false;
+    
+    fuelUsed = 0;
+    startTime = ofGetElapsedTimef();
+    
+    background.setup();
 }
 
 //--------------------------------------------------------------
@@ -56,31 +179,50 @@ void NewtonianLevel::update(){
     strm << "fps: " << ofGetFrameRate();
     ofSetWindowTitle(strm.str());
     
+    if (!paused.pause) {
+        
     
-    for (int i = 0; i < planets.size(); i++) {
-        planets[i].strength = gravity;
-        planets[i].radiusScale = radius;
-        planets[i].update();
-    }
-    
-    
-    ship.thetaInc = turning;
-    ship.thrustScale = thrust;
-    ship.turn();
-    ship.updateNewt(planets);
-    
-    
-    cam.update(ship.pos);
-    
-    if(goal.collide(ship.pos)){
-        win = true;
-    }
-    
-    if(win){
-        youWin.update();
-        if (youWin.reset) {
-            this->setup();
+        for (int i = 0; i < planets.size(); i++) {
+            planets[i].strength = gravity;
+            planets[i].radiusScale = radius;
+            planets[i].update();
         }
+        
+        
+        ship.thetaInc = turning;
+        ship.thrustScale = thrust;
+        ship.turn();
+        ship.updateNewt(planets);
+        
+        
+        cam.update(ship.pos);
+        
+        if(goal.collide(ship.pos)){
+            win = true;
+        }
+        
+        if(win){
+            youWin.update();
+            if (youWin.reset) {
+                youWin.reset = false;
+                this->levelSetup(currentLevel);
+            }
+        }
+        
+        
+    }else{
+        paused.update();
+        if (paused.reset) {
+            paused.reset = false;
+            this->levelSetup(currentLevel);
+        }
+    }
+    
+    if (!win) {
+        if (ship.boost) {
+            fuelUsed++;
+        }
+        elapsedTime = ofGetElapsedTimef() - startTime;
     }
     
 }
@@ -99,12 +241,15 @@ void NewtonianLevel::draw(){
         }
     }
     
-    goal.draw();
+    if (!win) {
+        goal.draw();
+        goal.drawHint(ship.pos);
+    }
     
     ship.ps.display();
     ship.draw();
     
-    goal.drawHint(ship.pos);
+    
     
     cam.end();
     
@@ -113,7 +258,11 @@ void NewtonianLevel::draw(){
     ship.drawFuel();
     
     if(win){
-        youWin.draw();
+        youWin.draw( to_string(fuelUsed/3), to_string(elapsedTime) );
+    }
+    
+    if(paused.pause){
+        paused.draw();
     }
     
     
@@ -155,6 +304,15 @@ void NewtonianLevel::keyReleased(int key){
     }
     if (win) {
         youWin.keyPressed(key);
+    }
+    if (paused.pause) {
+        paused.keyPressed(key);
+    }
+    if (key == 'p' || key == 'P') {
+        if (!win) {
+            paused.setup();
+            paused.pause = true;
+        }
     }
 }
 

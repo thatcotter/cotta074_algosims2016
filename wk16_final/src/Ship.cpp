@@ -10,7 +10,7 @@
 
 
 Ship::Ship(){
-    
+    ps.particles.clear();
     pos.x = ofGetWidth()*3/2;
     pos.y = ofGetHeight()*3/2;
     mass = 100.0;

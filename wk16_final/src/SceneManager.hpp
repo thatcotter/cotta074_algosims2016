@@ -13,13 +13,12 @@
 #include "ofMain.h"
 #include "LevelSelect.hpp"
 
-class SceneManager : public ofBaseApp{
+class SceneManager{
     
 public:
     SceneManager();
     virtual void setup();
     virtual void update(LevelSelect _menu);
-//    void keyPressed(int key);
     
     bool start;
     bool levelSelect;

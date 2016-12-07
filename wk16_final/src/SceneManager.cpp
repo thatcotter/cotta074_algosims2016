@@ -23,7 +23,7 @@ void SceneManager::setup(){
 void SceneManager::update(LevelSelect _menu){
     
     if (start) {
-        if (ofGetKeyPressed(32)) {
+        if (ofGetKeyPressed()) {
             start = false;
             levelSelect = true;
         }
@@ -54,16 +54,4 @@ void SceneManager::update(LevelSelect _menu){
         }
     }
     
-    if (win || lose) {
-        if (ofGetKeyPressed()) {
-            win = false;
-            lose = false;
-            levelSelect = true;
-        }
-    }
-}
-
-
-void keyPressed(int key){
-
 }

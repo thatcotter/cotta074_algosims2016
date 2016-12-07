@@ -11,7 +11,7 @@
 
 LevelSelect::LevelSelect(){
     
-    numLevels = 2;
+    numLevels = 4;
     
 }
 
@@ -20,8 +20,6 @@ void LevelSelect::setup(){
     
     cam.setup(ship.pos);
     
-    ofBackground(64);
-    ofSetFrameRate(60);
     
     gui.setup();
     gui.add(gravity.setup("gravity", 187.0, 0.0, 300.0));
@@ -29,11 +27,12 @@ void LevelSelect::setup(){
     gui.add(turning.setup("turning speed", 2.65, 0.01, 8.0));
     gui.add(thrust.setup("thrust", 3.6, 0.01, 8.0));
     
+    planets.clear();
     
     for (int i = 0; i < numLevels; i++) {
         Planetoid p;
         p.pos = ofPoint(ofGetWidth()/ ( numLevels+1 ) * ( i + 1 ) ,
-                        ofGetHeight()/3);
+                        ofGetHeight()*0.4);
 
         p.drag = false;
         p.radiusScale = 1.0;
@@ -44,11 +43,15 @@ void LevelSelect::setup(){
     ofVec2f shipPos( ofGetWidth()/2, ofGetHeight()/2 );
     
     ship.setup(shipPos);
+    ship.vel = ofVec2f( 0, 0 );
+    ship.trail.clear();
     
+    selectedLevel.clear();
     selectedLevel.resize(numLevels);
     
     debug = false;
     
+    background.stars.clear();
     background.setup();
     
 }
@@ -88,9 +91,6 @@ void LevelSelect::update(){
         }
         
     }
-    
-    
-    
     
     cam.update(ship.pos);
     

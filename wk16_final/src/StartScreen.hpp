@@ -19,6 +19,7 @@ public:
     void setup(string _title, string _subtitle, string _prompt);
     void update();
     void draw();
+    void keyPressed(int key);
     
     float time;
     string title;

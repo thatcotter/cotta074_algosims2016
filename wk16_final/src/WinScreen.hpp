@@ -19,10 +19,11 @@ public:
     WinScreen(float _time, float _fuel);
     void setup();
     void update();
-    void draw();
+    void draw(string _fuel, string _time);
     void keyPressed(int key); 
 
     float   opacity;
+    float   delay;
     int     index;
     
     vector<float>  options;
@@ -32,6 +33,7 @@ public:
     
     ofTrueTypeFont title;
     ofTrueTypeFont optionText;
+    ofTrueTypeFont scoreText;
 };
 
 #endif /* WinScreen_hpp */

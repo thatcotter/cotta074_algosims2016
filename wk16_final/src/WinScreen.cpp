@@ -11,10 +11,14 @@
 
 WinScreen::WinScreen(){
     
+    reset, menu = false;
+    
     opacity = 0;
+    delay = 0;
     index = 0;
     title.load( "Ubuntu-Medium.ttf", 42 );
     optionText.load( "Ubuntu-Light.ttf", 24);
+    scoreText.load("Ubuntu-LightItalic.ttf", 64);
     
     for (int i = 0; i < 1; i++) {
         float temp;
@@ -24,7 +28,8 @@ WinScreen::WinScreen(){
     options[0] = ofGetHeight()*0.405;
     options[1] = ofGetHeight()*0.45;
 
-    reset, menu = false;
+//    cout << "WIN: reset == " << reset << endl;
+    
 }
 
 WinScreen::WinScreen(float _time, float _fuel){
@@ -32,6 +37,11 @@ WinScreen::WinScreen(float _time, float _fuel){
 }
 
 void WinScreen::setup(){
+    
+    reset, menu = false;
+    opacity = 0;
+    delay = 0;
+    index = 0;
     
 }
 
@@ -41,9 +51,11 @@ void WinScreen::update(){
         opacity+=3;
     }
     
+    delay += 1;
+    
 }
 
-void WinScreen::draw(){
+void WinScreen::draw(string _fuel, string _time){
     
     ofSetColor(0, 0, 0, opacity);
     
@@ -56,8 +68,13 @@ void WinScreen::draw(){
     optionText.drawString("Retry", ofGetWidth()*0.24, ofGetHeight()*0.45);
     optionText.drawString("Menu", ofGetWidth()*0.24, ofGetHeight()*0.50);
     
-    
     ofDrawCircle(ofGetWidth()*0.22, options[index], 5);
+    
+    optionText.drawString("Fuel Used", ofGetWidth()*0.4, ofGetHeight()*0.45);
+    scoreText.drawString( _fuel + " kg", ofGetWidth()*0.4, ofGetHeight()*0.58);
+    
+    optionText.drawString("Elapsed Time", ofGetWidth()*0.4, ofGetHeight()*0.65);
+    scoreText .drawString( _time + " s", ofGetWidth()*0.4, ofGetHeight()*0.78 );
     
 }
 
@@ -80,7 +97,7 @@ void WinScreen::keyPressed(int key){
     }
     
     if (key == ' ' || key == OF_KEY_RETURN) {
-        if (opacity >= 192) {
+        if (delay >= 60) {
             if ( index == 0 ) {
                 reset = true;
             }else{

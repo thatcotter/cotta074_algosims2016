@@ -5,15 +5,14 @@ void ofApp::setup(){
 //    ofToggleFullscreen();
     
     
-    ofBackground(64);
+    ofBackground(56,66,89);
     ofSetFrameRate(60);
     ofEnableAntiAliasing();
     
     start.setup("Voyage", "A spacetime oddyssey", "Press Any Key to Begin");
-//    demoLevel.setup();
-    newtLevel1.setup();
-    newtLevel2.setup();
     selectScreen.setup();
+    
+    level.setup();
     
     music.load("Tri-Tachyon_-_01_-_The_Glow.mp3");
     music.play();
@@ -38,32 +37,55 @@ void ofApp::update(){
     
     if (scenes.levelSelect) {
         selectScreen.update();
+        for (int i = 0; i < selectScreen.selectedLevel.size(); i++) {
+            if (selectScreen.selectedLevel[i]) {
+                level.setup();
+                level.levelSetup(i+1);
+            }
+        }
     }
     
-
-    if (scenes.level[0] && !scenes.pause) {
-        newtLevel1.update();
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i] && !scenes.pause) {
+            level.update();
+            if (level.youWin.menu || level.paused.menu) {
+                
+                level.youWin.menu, level.paused.menu = false;
+                
+                scenes.level[i] = false;
+                
+                level.setup();
+                selectScreen.setup();
+                scenes.levelSelect = true;
+                
+            }
+        }
     }
     
-    if (scenes.level[1] && !scenes.pause) {
-        newtLevel2.update();
-    }
     
     
-    if (scenes.win) {
-        
-    }
-    
-    if (scenes.lose) {
-        
-    }
+//    if (scenes.level[1] && !scenes.pause) {
+//        newtLevel2.update();
+//        if (newtLevel2.youWin.menu || newtLevel2.paused.menu) {
+////            cout << "App: Return to Menu" << endl;
+//            newtLevel2.youWin.menu, newtLevel2.paused.menu = false;
+//            scenes.level[1] = false;
+//            
+//            newtLevel2.setup();
+//            selectScreen.setup();
+//            scenes.levelSelect = true;
+//        }
+//    }
     
 
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-        
+    
+    ofBackground(56,66,89);
+
+    
     if (scenes.start) {
         
         start.draw();
@@ -76,24 +98,10 @@ void ofApp::draw(){
         
     }
     
-    
-    if (scenes.level[0]) {
-        
-        newtLevel1.draw();
-    }
-    
-    if (scenes.level[1]) {
-        
-        newtLevel2.draw();
-        
-    }
-    
-    if (scenes.win) {
-        
-    }
-    
-    if (scenes.lose) {
-        
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i]) {
+            level.draw();
+        }
     }
     
 }
@@ -101,16 +109,18 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
+    if (scenes.start) {
+//        scenes.keyPressed(key);
+    }
+    
     if (scenes.levelSelect) {
         selectScreen.keyPressed(key);
     }
     
-    if (scenes.level[0]) {
-        newtLevel1.keyPressed(key);
-    }
-    
-    if (scenes.level[1]) {
-        newtLevel2.keyPressed(key);
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i]) {
+            level.keyPressed(key);
+        }
     }
     
 }
@@ -122,12 +132,10 @@ void ofApp::keyReleased(int key){
         selectScreen.keyReleased(key);
     }
     
-    if (scenes.level[0]) {
-        newtLevel1.keyReleased(key);
-    }
-    
-    if (scenes.level[1]) {
-        newtLevel2.keyReleased(key);
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i]) {
+            level.keyReleased(key);
+        }
     }
     
 }
@@ -139,14 +147,11 @@ void ofApp::mouseMoved(int x, int y ){
         selectScreen.mouseMoved(x, y);
     }
     
-    if (scenes.level[0]) {
-        newtLevel1.mouseMoved(x, y);
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i]) {
+            level.mouseMoved(x, y);
+        }
     }
-    
-    if (scenes.level[1]) {
-        newtLevel2.mouseMoved(x, y);
-    }
-    
 }
 
 //--------------------------------------------------------------
@@ -155,13 +160,11 @@ void ofApp::mouseDragged(int x, int y, int button){
     if (scenes.levelSelect) {
         selectScreen.mouseDragged(x, y, button);
     }
-
-    if (scenes.level[0]) {
-        newtLevel1.mouseDragged(x, y, button);
-    }
     
-    if (scenes.level[1]) {
-        newtLevel2.mouseDragged(x, y, button);
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i]) {
+            level.mouseDragged(x, y, button);
+        }
     }
     
 }
@@ -173,12 +176,10 @@ void ofApp::mousePressed(int x, int y, int button){
         selectScreen.mousePressed(x, y, button);
     }
     
-    if (scenes.level[0]) {
-        newtLevel1.mousePressed(x, y, button);
-    }
-    
-    if (scenes.level[1]) {
-        newtLevel2.mousePressed(x, y, button);
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i]) {
+            level.mousePressed(x, y, button);
+        }
     }
 
 }
@@ -189,14 +190,13 @@ void ofApp::mouseReleased(int x, int y, int button){
     if (scenes.levelSelect) {
         selectScreen.mouseReleased(x, y, button);
     }
-
-    if (scenes.level[0]) {
-        newtLevel1.mouseReleased(x, y, button);
+    
+    for (int i = 0; i < scenes.level.size(); i++) {
+        if (scenes.level[i]) {
+            level.mouseReleased(x, y, button);
+        }
     }
     
-    if (scenes.level[1]) {
-        newtLevel2.mouseReleased(x, y, button);
-    }
 }
 
 //--------------------------------------------------------------

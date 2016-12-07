@@ -33,7 +33,7 @@ void Planetoid::update(){
 
 void Planetoid::draw(){
     
-    ofSetColor(255);
+    ofSetColor(122,199,196);
     ofSetCircleResolution(30);
     
     
@@ -48,7 +48,7 @@ void Planetoid::drawGravity(float _size, int _iterations){
     
     if (_iterations > 0) {
         ofNoFill();
-        ofSetColor(255, 255, 255, 255/iterations);
+        ofSetColor(196, 237, 222, 255/iterations);
         ofDrawCircle(pos, size);
         this->drawGravity(size/2, iterations - 1);
     }else{
