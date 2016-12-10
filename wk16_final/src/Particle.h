@@ -9,7 +9,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "FlowField.h"
 #include "Planetoid.hpp"
 
 class Particle {
@@ -23,7 +22,6 @@ class Particle {
     float age;
     
     void applyForce( ofVec2f force );
-    void update(FlowField field);
     void updateGrav( Planetoid planet );
     void draw();
     bool isDead();

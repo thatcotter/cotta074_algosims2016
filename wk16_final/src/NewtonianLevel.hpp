@@ -22,6 +22,7 @@
 class NewtonianLevel{
     
 public:
+//    void setup(ofTrueTypeFont _title, ofTrueTypeFont _optionText, ofTrueTypeFont _scoreText);
     void setup();
     void update();
     
@@ -41,6 +42,14 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    void fadeInUpdate();
+    void fadeOutUpdate();
+    void fadeInterpolate(float _pct);
+    void fadeDraw();
+    
+    float fadeOpacity;
+    float pct;
+    float fadePct;
     
     Ship ship;
     
@@ -51,14 +60,14 @@ public:
     vector<Planetoid> planets;
     
     WinScreen youWin;
-    PauseScreen paused;
     
     bool debug;
     bool win;
+    bool exit;
     
     float startTime;
     
-    int  fuelUsed;
+    float fuelUsed;
     int elapsedTime;
     
     ofxPanel        gui;
@@ -70,4 +79,8 @@ public:
     Camera2D        cam;
     
     StarField       background;
+    
+    ofTrueTypeFont title;
+    ofTrueTypeFont optionText;
+    ofTrueTypeFont scoreText;
 };

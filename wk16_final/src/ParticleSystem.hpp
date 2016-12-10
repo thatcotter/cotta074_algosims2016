@@ -11,14 +11,12 @@
 
 #include <stdio.h>
 #include "Particle.h"
-#include "FlowField.h"
 
 class ParticleSystem{
     
 public:
     ParticleSystem();
     void setup();
-    void update(FlowField field);
     void updateNewt(vector<Planetoid> planets);
     void updateGravity(Planetoid planet);
     void display();

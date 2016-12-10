@@ -11,7 +11,7 @@
 Planetoid::Planetoid(){
     
     pos = ofPoint( ofGetWidth()/2, ofGetHeight()/2 );
-    radiusSeed = ofRandom(10);
+    radiusSeed = 7;
     radiusScale = 100;
     radius = radiusSeed * radiusScale;
     strength = 2.0;

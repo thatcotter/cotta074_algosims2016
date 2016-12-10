@@ -16,6 +16,7 @@
 #include "Camera2D.hpp"
 #include "Planetoid.hpp"
 #include "StarField.hpp"
+#include "PauseScreen.hpp"
 #include "ofxGui.h"
 
 class LevelSelect{
@@ -38,11 +39,23 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    bool anyLvlPicked();
+    
+    void fadeInUpdate();
+    void fadeOutUpdate();
+    void fadeInterpolate(float _pct);
+    void fadeDraw();
+    
+    void drawControls();
+    
+    float fadeOpacity;
+    float pct;
+    float fadePct;
+    bool fadeIn;
+    bool fadeOut;
     
     Ship            ship;
-    
-    ofFbo           fbo1, fbo2;
-    
+        
     vector<Planetoid> planets;
     
     bool debug;
@@ -60,6 +73,7 @@ public:
     vector<bool>    selectedLevel;
     
     StarField       background;
+    
 };
 
 #endif /* LevelSelect_hpp */

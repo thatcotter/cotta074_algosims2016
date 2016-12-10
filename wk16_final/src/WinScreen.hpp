@@ -18,6 +18,7 @@ public:
     WinScreen();
     WinScreen(float _time, float _fuel);
     void setup();
+//    void setup(ofTrueTypeFont _title, ofTrueTypeFont _optionText, ofTrueTypeFont _scoreText);
     void update();
     void draw(string _fuel, string _time);
     void keyPressed(int key); 
@@ -34,6 +35,7 @@ public:
     ofTrueTypeFont title;
     ofTrueTypeFont optionText;
     ofTrueTypeFont scoreText;
+    ofTrueTypeFont detailText;
 };
 
 #endif /* WinScreen_hpp */

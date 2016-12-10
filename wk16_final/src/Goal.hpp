@@ -24,6 +24,7 @@ public:
     
     ofVec2f pos;
     float   radius;
+    float   theta;
 };
 
 #endif /* Goal_hpp */

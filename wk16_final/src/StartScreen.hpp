@@ -29,7 +29,7 @@ public:
     ofFbo fade;
     
     ofTrueTypeFont titleFont;
-        
+    
     StarField   background;
     
 };

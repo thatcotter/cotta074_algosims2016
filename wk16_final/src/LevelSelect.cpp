@@ -11,7 +11,7 @@
 
 LevelSelect::LevelSelect(){
     
-    numLevels = 4;
+    numLevels = 12;
     
 }
 
@@ -27,17 +27,27 @@ void LevelSelect::setup(){
     gui.add(turning.setup("turning speed", 2.65, 0.01, 8.0));
     gui.add(thrust.setup("thrust", 3.6, 0.01, 8.0));
     
+    
     planets.clear();
     
     for (int i = 0; i < numLevels; i++) {
         Planetoid p;
-        p.pos = ofPoint(ofGetWidth()/ ( numLevels+1 ) * ( i + 1 ) ,
-                        ofGetHeight()*0.4);
+        
+        p.pos = ofPoint(ofGetWidth()*0.5 + cos( (i-3)*TWO_PI / numLevels) * (ofGetWidth()*0.2),
+                        ofGetHeight()*0.5 + sin( (i-3)*TWO_PI / numLevels) * (ofGetWidth()*0.2));
 
         p.drag = false;
         p.radiusScale = 1.0;
-        p.radiusSeed = 1.0;
+        p.radiusSeed = 1.5;
         planets.push_back(p);
+    }
+    
+    for (int i = 0; i < planets.size(); i++) {
+        
+        planets[i].strength = gravity;
+        planets[i].radiusScale = radius;
+        planets[i].update();
+        
     }
     
     ofVec2f shipPos( ofGetWidth()/2, ofGetHeight()/2 );
@@ -45,11 +55,19 @@ void LevelSelect::setup(){
     ship.setup(shipPos);
     ship.vel = ofVec2f( 0, 0 );
     ship.trail.clear();
+    ship.left, ship.right, ship.boost = false;
     
     selectedLevel.clear();
     selectedLevel.resize(numLevels);
     
     debug = false;
+    
+    fadeOpacity = 255;
+    pct = 0;
+    fadePct = 0;
+    fadeIn = true;
+    fadeOut = false;
+    
     
     background.stars.clear();
     background.setup();
@@ -67,33 +85,47 @@ void LevelSelect::update(){
     ofSetWindowTitle(strm.str());
     
     
-    for (int i = 0; i < planets.size(); i++) {
+    if ( fadeIn ) {
         
-        planets[i].strength = gravity;
-        planets[i].radiusScale = radius;
-        planets[i].update();
+        this->fadeInUpdate();
+        cam.update(ship.pos);
+
         
-    }
-    
-    
-    
-    ship.thetaInc = turning;
-    ship.thrustScale = thrust;
-    
-    ship.updateNewt(planets);
-    
-    for (int i = 0; i < planets.size(); i++) {
+    } else if ( fadeOut ){
         
-        ofVec2f force = planets[i].pos - ship.pos;
-        float distance= force.length();
-        if ( distance < planets[i].radius/12 ) {
-            selectedLevel[i] = true;
+        this->fadeOutUpdate();
+        
+    }else{
+    
+        for (int i = 0; i < planets.size(); i++) {
+            
+            planets[i].strength = gravity;
+            planets[i].radiusScale = radius;
+            planets[i].update();
+            
         }
         
+        
+        
+        ship.thetaInc = turning;
+        ship.thrustScale = thrust;
+        
+        ship.updateNewt(planets);
+        
+        for (int i = 0; i < planets.size(); i++) {
+            
+            ofVec2f force = planets[i].pos - ship.pos;
+            float distance= force.length();
+            if ( distance < planets[i].radius/12 ) {
+                fadeOut = true;
+                selectedLevel[i] = true;
+            }
+            
+        }
+        
+        cam.update(ship.pos);
+        
     }
-    
-    cam.update(ship.pos);
-    
 
 }
 
@@ -120,9 +152,7 @@ void LevelSelect::draw(){
     
     
     cam.end();
-    
-    ship.drawFuel();
-    
+
     if (debug) {
         gui.draw();
     }
@@ -197,3 +227,66 @@ void LevelSelect::mouseReleased(int x, int y, int button){
     
 }
 
+//--------------------------------------------------------------
+void LevelSelect::fadeInUpdate(){
+    
+    this->pct += 0.01;
+    
+    this->fadeInterpolate(pct);
+    
+    if (fadeOpacity <= 0) {
+        fadeIn = false;
+    }
+    
+}
+
+void LevelSelect::fadeOutUpdate(){
+    
+    this->pct -= 0.01;
+    
+    this->fadeOpacity++;
+    
+    if (fadeOpacity > 255) {
+        fadeOut = false;
+    }
+}
+
+void LevelSelect::fadeInterpolate(float _pct){
+    
+    fadePct = pow(_pct, 0.8);
+    fadeOpacity = (1-fadePct) * 255;
+    
+}
+
+void LevelSelect::fadeDraw(){
+    
+    ofSetColor(0, 0, 0, fadeOpacity);
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    
+}
+
+bool LevelSelect::anyLvlPicked(){
+    
+    int temp;
+    
+    for (int i = 0; i < selectedLevel.size(); i++) {
+        if (selectedLevel[i] == true) {
+            cout << " a level was selected " << endl;
+            return true;
+            break;
+        }
+    }
+    
+    return false;
+    
+}
+
+//--------------------------------------------------------------
+void LevelSelect::drawControls(){
+    
+    ofDrawBitmapString("Controls", 50, 50 );
+    ofDrawBitmapString("Turn: Left & Right", 50, 75 );
+    ofDrawBitmapString("Boost: Space or A Button", 50, 100 );
+    ofDrawBitmapString("Pause: Esc Key or START Button", 50, 125 );
+    
+}

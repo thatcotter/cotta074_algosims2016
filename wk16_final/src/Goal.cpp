@@ -22,14 +22,26 @@ void Goal::setup(float _x, float _y){
 
 void Goal::update(){
     
+    theta+=2;
+    
 }
 
 void Goal::draw(){
     
     
+//    ofSetColor(247,56,89);
+//    ofDrawRectangle(this->pos.x-(radius/2), this->pos.y-(radius/2),
+//                    radius, radius);
+    
+    ofPushMatrix();
+    ofTranslate(this->pos.x, this->pos.y);
+    ofRotate(theta);
+    
+    ofRectMode CENTER;
     ofSetColor(247,56,89);
-    ofDrawRectangle(this->pos.x-(radius/2), this->pos.y-(radius/2),
-                    radius, radius);
+    ofDrawRectangle(-(radius/2), -(radius/2), radius, radius);
+    
+    ofPopMatrix();
     
 }
 
@@ -43,12 +55,6 @@ void Goal::drawHint(ofVec2f _pos){
     distance.normalize();
     
     distance *= 30;
-    
-//    ofSetColor(255, 0, 0);
-//    ofDrawLine( _pos, this->pos );
-//    
-//    ofSetColor(0, 255, 0);
-//    ofDrawLine( _pos, (_pos - distance) );
     
     ofSetColor(247,56,89);
     for (int i = 1; i < lineDistance/30; i+=2) {

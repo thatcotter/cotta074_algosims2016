@@ -36,7 +36,12 @@ WinScreen::WinScreen(float _time, float _fuel){
     
 }
 
+//void WinScreen::setup(ofTrueTypeFont _title, ofTrueTypeFont _optionText, ofTrueTypeFont _scoreText){
 void WinScreen::setup(){
+    
+//    title = _title;
+//    optionText = _optionText;
+//    scoreText = _scoreText;
     
     reset, menu = false;
     opacity = 0;

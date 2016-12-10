@@ -3,9 +3,10 @@
 #include "ofMain.h"
 
 #include "StartScreen.hpp"
-#include "FlowfieldLevel.hpp"
 #include "NewtonianLevel.hpp"
 #include "LevelSelect.hpp"
+
+#include "PauseScreen.hpp"
 
 #include "SceneManager.hpp"
 #include "ofxGui.h"
@@ -29,13 +30,13 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-    void customLevel1(NewtonianLevel lvl1);
-    
     SceneManager    scenes;
     StartScreen     start;
     NewtonianLevel  level;
     LevelSelect     selectScreen;
     
     ofSoundPlayer   music;
+    
+    PauseScreen     pauseScreen;
     
 };

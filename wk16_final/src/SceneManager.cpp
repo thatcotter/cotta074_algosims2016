@@ -11,9 +11,7 @@
 SceneManager::SceneManager(){
     start = true;
     levelSelect = false;
-    win = false;
-    lose = false;
-    level.resize(3);
+    level.resize(24);
 }
 
 void SceneManager::setup(){
@@ -40,18 +38,6 @@ void SceneManager::update(LevelSelect _menu){
         }
     }
     
-    if (pause) {
-        if (ofGetKeyPressed(32)) {
-            pause = false;
-        }
-    }
-    
-    for (int i = 0; i < level.size(); i++) {
-        if (level[i] || !pause) {
-            if (ofGetKeyPressed(80)) {
-                pause = false;
-            }
-        }
-    }
+
     
 }

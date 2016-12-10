@@ -18,19 +18,6 @@ void Particle::applyForce(ofVec2f force){
     accel += (force / mass);
 }
 
-void Particle::update(FlowField field){
-    
-    ofPoint forceAtPos = field.getForceAtPosition(this->pos) * 0.005;
-    this->applyForce( forceAtPos );
-    
-    vel += accel;
-    pos += vel;
-    
-    vel *= 0.97;
-    
-    accel.set(0);
-}
-
 void Particle::updateGrav(Planetoid planet){
     
     ofPoint forceAtPos = planet.attract(this->pos, this->mass) * 0.005;

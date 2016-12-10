@@ -22,9 +22,6 @@ public:
     
     bool start;
     bool levelSelect;
-    bool win;
-    bool lose;
-    bool pause;
     
     vector<bool> level;
     

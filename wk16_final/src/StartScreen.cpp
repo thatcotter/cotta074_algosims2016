@@ -12,6 +12,7 @@ StartScreen::StartScreen(){
     time = 0;
     fade.allocate(ofGetWidth(), ofGetHeight());
     titleFont.load( "Serif Gothic Bold.ttf", 64 );
+    titleFont.setLetterSpacing(titleFont.getLetterSpacing()*1.125);
 }
 
 void StartScreen::setup(string _title, string _subtitle, string _prompt){
@@ -41,8 +42,9 @@ void StartScreen::draw(){
     background.draw();
     
 //    ofDrawBitmapString(title, ofGetWidth()/3, ofGetHeight()/3);
-    titleFont.drawString(title, ofGetWidth()*0.33, ofGetHeight()*0.5);
 //    ofDrawBitmapString(subtitle, ofGetWidth()/3, ofGetHeight()/3+50);
+
+    titleFont.drawString(title, ofGetWidth()*0.32, ofGetHeight()*0.5);
     ofDrawBitmapString(prompt, ofGetWidth()*0.4, ofGetHeight()*0.8);
     
     fade.draw(0,0);

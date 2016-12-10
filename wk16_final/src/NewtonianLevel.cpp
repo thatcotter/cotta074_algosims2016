@@ -11,21 +11,17 @@
 
 //--------------------------------------------------------------
 void NewtonianLevel::setup(){
-    
-    //reset everything first
     planets.clear();
     
     background.stars.clear();
 
     ship.trail.clear();
     ship.vel = ofVec2f(0,0);
-    ship.setup(ofVec2f( ofGetWidth()*3/2, ofGetWidth()*3/2) );
+    ship.setup( ofVec2f( ofGetWidth()*3/2, ofGetWidth()*3/2 ) );
     
     youWin.setup();
-    paused.setup();
     
     
-    //then initialize
     cam.setup(ship.pos);
     
     ofBackground(64);
@@ -35,7 +31,7 @@ void NewtonianLevel::setup(){
     gui.add(gravity.setup("gravity", 187.0, 0.0, 300.0));
     gui.add(radius.setup("radius", 100.0, 0.0, 1000.0));
     gui.add(turning.setup("turning speed", 1.65, 0.0001, 2.0));
-    gui.add(thrust.setup("thrust", 5.0, 0.000001, 50.0));
+    gui.add(thrust.setup("thrust", 4.0, 0.000001, 50.0));
     
     
     for (int i = 0; i < 120; i++) {
@@ -46,8 +42,19 @@ void NewtonianLevel::setup(){
         planets.push_back(p);
     }
     
+    for (int i = 0; i < planets.size(); i++) {
+        
+        planets[i].strength = gravity;
+        planets[i].radiusScale = radius;
+        planets[i].update();
+        
+    }
+    
     debug = false;
     win = false;
+    
+    pct = 0;
+    fadePct = 0;
     
     fuelUsed = 0;
     startTime = ofGetElapsedTimef();
@@ -74,22 +81,12 @@ void NewtonianLevel::levelSetup(int lvl){
     ship.vel = ofVec2f(0,0);
     
     youWin.setup();
-    paused.setup();
     
-    
-    //then initialize
-    cam.setup(ship.pos);
     
     ofBackground(64);
     ofSetFrameRate(60);
     
-    gui.setup();
-    gui.add(gravity.setup("gravity", 187.0, 0.0, 300.0));
-    gui.add(radius.setup("radius", 100.0, 0.0, 1000.0));
-    gui.add(turning.setup("turning speed", 1.65, 0.0001, 2.0));
-    gui.add(thrust.setup("thrust", 5.0, 0.000001, 50.0));
-    
-    if (lvl == 1) {
+    if (lvl == 0) {
         
         ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
         ship.vel = ofVec2f(0,-2);
@@ -103,7 +100,7 @@ void NewtonianLevel::levelSetup(int lvl){
         planets.push_back(p);
         
         
-    } else if (lvl == 2) {
+    } else if (lvl == 1) {
         
         ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
         ship.vel = ofVec2f(-0.25,-1);
@@ -111,12 +108,32 @@ void NewtonianLevel::levelSetup(int lvl){
         goal.setup(ship.pos.x + 100, ship.pos.x + 100);
         
         Planetoid p;
+        
         p.pos = ofVec2f(ship.pos - 150);
         p.radiusSeed = 7;
         p.drag = false;
         planets.push_back(p);
         
         p.pos = ofVec2f(ship.pos.x + 150, ship.pos.y - 150);
+        p.radiusSeed = 7;
+        p.drag = false;
+        planets.push_back(p);
+        
+        
+    } else if (lvl == 2) {
+        
+        ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
+        ship.vel = ofVec2f(-0.25,-2);
+        
+        goal.setup(ship.pos.x + 100, ship.pos.x - 100);
+        
+        Planetoid p;
+        p.pos = ofVec2f(ship.pos - 100);
+        p.radiusSeed = 7;
+        p.drag = false;
+        planets.push_back(p);
+        
+        p.pos = ofVec2f(ship.pos.x + 100, ship.pos.y - 100);
         p.radiusSeed = 7;
         p.drag = false;
         planets.push_back(p);
@@ -160,12 +177,50 @@ void NewtonianLevel::levelSetup(int lvl){
         planets.push_back(p);
         
         
+    } else if (lvl == 5) {
+        
+        cout << "newt: setup lvl 5" << endl;
+        
+        ship.setup(ofVec2f( ofGetWidth()/2, ofGetWidth()/2) );
+        ship.vel = ofVec2f(-0.25,-2);
+        
+        goal.setup(ship.pos.x + 100, ship.pos.y + 100);
+        
+        Planetoid p;
+        p.pos = ofVec2f(ship.pos - 100);
+        p.radiusSeed = 8;
+        p.drag = false;
+        planets.push_back(p);
+        
+        p.pos = ofVec2f(ship.pos.x + 100, ship.pos.y - 100);
+        p.radiusSeed = 8;
+        p.drag = false;
+        planets.push_back(p);
+        
+        
     }
     
+    for (int i = 0; i < planets.size(); i++) {
+        
+        planets[i].strength = gravity;
+        planets[i].radiusScale = radius;
+        planets[i].update();
+        
+    }
+    
+    cout << "newt: finished setting up lvl " << lvl << endl;
+    cout << planets.size() << endl;
+    cout << ship.pos << endl;
+    
+    cam.setup(ship.pos);
     
     debug = false;
     win = false;
+//    fadeOpacity = 250;
+    pct = 0;
+    fadePct = 0;
     
+    ship.boost = false;
     fuelUsed = 0;
     startTime = ofGetElapsedTimef();
     
@@ -179,8 +234,17 @@ void NewtonianLevel::update(){
     strm << "fps: " << ofGetFrameRate();
     ofSetWindowTitle(strm.str());
     
-    if (!paused.pause) {
+    if (pct < 1.0  && !this->win ) {
         
+        this->fadeInUpdate();
+        cam.update(ship.pos);
+        
+    } else if (pct > 0.01 && this->exit ){
+        
+        this->fadeOutUpdate();
+        
+    }else{
+    
     
         for (int i = 0; i < planets.size(); i++) {
             planets[i].strength = gravity;
@@ -195,6 +259,7 @@ void NewtonianLevel::update(){
         ship.updateNewt(planets);
         
         
+        
         cam.update(ship.pos);
         
         if(goal.collide(ship.pos)){
@@ -207,20 +272,15 @@ void NewtonianLevel::update(){
                 youWin.reset = false;
                 this->levelSetup(currentLevel);
             }
+        }else{
+            goal.update();
         }
         
-        
-    }else{
-        paused.update();
-        if (paused.reset) {
-            paused.reset = false;
-            this->levelSetup(currentLevel);
-        }
     }
     
     if (!win) {
         if (ship.boost) {
-            fuelUsed++;
+            fuelUsed+= 0.33;
         }
         elapsedTime = ofGetElapsedTimef() - startTime;
     }
@@ -255,15 +315,13 @@ void NewtonianLevel::draw(){
     
     
     //UI
-    ship.drawFuel();
+//    ship.drawFuel();
     
     if(win){
-        youWin.draw( to_string(fuelUsed/3), to_string(elapsedTime) );
+        youWin.draw( to_string(int(fuelUsed)), to_string(elapsedTime) );
     }
     
-    if(paused.pause){
-        paused.draw();
-    }
+//    fadeDraw();
     
     
     if (debug) {
@@ -305,15 +363,19 @@ void NewtonianLevel::keyReleased(int key){
     if (win) {
         youWin.keyPressed(key);
     }
-    if (paused.pause) {
-        paused.keyPressed(key);
-    }
-    if (key == 'p' || key == 'P') {
-        if (!win) {
-            paused.setup();
-            paused.pause = true;
-        }
-    }
+//    if (paused.pause) {
+//        paused.keyPressed(key);
+//    }
+//    if (key == OF_KEY_ESC) {
+//        if (!win) {
+//            if (paused.pause && paused.delay >= 60) {
+//                paused.pause = false;
+//            } else if(! paused.pause){
+//                paused.setup( );
+//                paused.pause = true;
+//            }
+//        }
+//    }
 }
 
 //--------------------------------------------------------------
@@ -374,5 +436,36 @@ void NewtonianLevel::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void NewtonianLevel::dragEvent(ofDragInfo dragInfo){
+    
+}
+
+//--------------------------------------------------------------
+void NewtonianLevel::fadeInUpdate(){
+    
+    pct += 0.01;
+    
+    this->fadeInterpolate(pct);
+    
+}
+
+void NewtonianLevel::fadeOutUpdate(){
+    
+    pct -= 0.01;
+    
+    this->fadeInterpolate(pct);
+    
+}
+
+void NewtonianLevel::fadeInterpolate(float _pct){
+    
+    fadePct = pow(_pct, 0.8);
+    fadeOpacity = (1-fadePct) * 255;
+    
+}
+
+void NewtonianLevel::fadeDraw(){
+    
+    ofSetColor(0, fadeOpacity);
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     
 }

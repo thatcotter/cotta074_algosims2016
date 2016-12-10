@@ -8,7 +8,6 @@
 
 #ifndef Ship_hpp
 #define Ship_hpp
-//#include "Particle.h"
 #include "ParticleSystem.hpp"
 #include "Planetoid.hpp"
 #include <stdio.h>
@@ -19,7 +18,6 @@ public:
     void setup( ofVec2f _pos );
     virtual void draw();
     void drawFuel();
-    virtual void update(FlowField field);
     virtual void updateNewt(vector<Planetoid> planets );
     void planetGravity(Planetoid planet);
     void turn();
@@ -39,8 +37,9 @@ public:
     float   fuel;
     
     ofMesh      rocket;
-//    ofMesh trail;
     ofPolyline  trail;
+    
+    ofSoundPlayer  boostSound;
     
     ParticleSystem ps;
 };
